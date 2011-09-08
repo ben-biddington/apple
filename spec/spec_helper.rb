@@ -9,6 +9,7 @@ RSpec.configure do |config|
   config.include GarconDsl
 end
 
+
 Capybara.javascript_driver = :webkit
 Capybara.default_driver = Capybara.javascript_driver
 

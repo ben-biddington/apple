@@ -49,4 +49,5 @@ DEPENDENCIES
   capybara
   capybara-webkit
   launchy
+  nokogiri
   rspec
