@@ -15,3 +15,9 @@ Capybara.default_driver = Capybara.javascript_driver
 Capybara::Driver::Webkit::Browser.class_eval do 
   def forward_stdout(pipe); end;
 end
+
+Capybara::Driver::Webkit.class_eval do 
+  def visit(path)
+    browser.visit(path)
+  end
+end
