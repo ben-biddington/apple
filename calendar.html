@@ -1,0 +1,62 @@
+<html>
+<head>
+<style type="text/css">
+  table#events tr td { border: 1px solid red; padding:2px; }
+</style>
+</head>
+<body>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="jquery-1.6.3.min.js"></script>
+  <script language="javascript">
+    google.load("gdata", "1");
+    google.setOnLoadCallback(getMyFeed);
+ 
+    var myService;
+    var feedUrl = "https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com/public/full";
+
+    function onOkay(feedRoot) {
+      console.log("Title => " + feedRoot.feed.title.toString());
+      console.log("Entries => " + feedRoot.feed.getEntries());
+
+      var entries = feedRoot.feed.getEntries();
+
+      for (var item in entries) {
+        var entry = entries[item];
+    
+        var times = entry.getTimes();
+        var startDateTime = "Unknown";
+        var endDateTime = "Unknown";
+        var timezoneOffsetInMinutes = "Unknown"
+
+        if (times.length > 0) {
+          var theDate = times[0].getStartTime().getDate();
+          startDateTime = theDate.toDateString(); 
+          var endDate = times[0].getEndTime().getDate();
+          endDateTime = endDate.toDateString();
+          timezoneOffsetInMinutes = theDate.getTimezoneOffset();
+        }
+
+        $("<tr><td>" + startDateTime + "</td><td>" + endDateTime + "</td><td>" + entry.getTitle().getText() + "</td></tr>").appendTo("#events");
+      }
+
+      $("<p>Time zone offset (hours): " + timezoneOffsetInMinutes/60 + "</p>").appendTo("#events");
+    }
+
+    function onError(e) { }
+
+    function getMyFeed() {
+      calendar = new google.gdata.calendar.CalendarService('cl');
+
+      calendar.getEventsFeed(feedUrl, onOkay, onError);
+    }
+  </script> 
+
+  <table id="events">
+    <tr>
+      <td>Starts</td>
+      <td>Ends</td>
+      <td>Name</td>
+    </tr>
+  </table>
+</body>
+</html>
