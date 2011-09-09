@@ -114,10 +114,12 @@
           var startDate = zeroTime(times[0].getStartTime().getDate());
           var endDate = zeroTime(times[0].getEndTime().getDate());
 	  
-	  var isInInterval = startDate <= when && when <= endDate; 		  
+	  var isInInterval = startDate <= when && when < endDate; 		  
 
-          if (isInInterval)
-            return true;
+          if (isInInterval) {
+	   console.log(startDate + " <= " + when + " <= " + endDate);
+           return true;
+          }
         }
       }	
 

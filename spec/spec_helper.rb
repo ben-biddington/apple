@@ -4,6 +4,10 @@ require "capybara/dsl"
 require "capybara-webkit"
 require "garcon"
 
+dir = File.dirname(File.expand_path(__FILE__))
+
+Dir["#{dir}/lib/**/*.rb"].each {|f| require f}
+
 RSpec.configure do |config|
   config.include Capybara::DSL
   config.include GarconDsl

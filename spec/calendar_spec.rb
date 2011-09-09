@@ -1,5 +1,4 @@
 require "spec_helper"
-require "calendar_feed"
 
 describe "The calendar on the split apple rock site" do 
   before :all do
@@ -24,14 +23,18 @@ describe "The calendar on the split apple rock site" do
   it "shows busy days" do
     calendar = CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"
 
-    visit "#{@base_url}?y=2011&m=9"
+    september = 9
+
+    visit "#{@base_url}?y=2011&m=#{september}"
 
     wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span[@class='day']" }
     
     the_days = all("//div[@id='calendar']/span[@class='day busy']")
 
-    the_days.size.should(eql(calendar.entries.size), 
-      "Expected #{calendar.entries.size} days to be marked as busy, got #{the_days.size}."
+    total_days = calendar.get_busy_days_for september
+
+    the_days.size.should(eql(total_days), 
+      "Expected #{total_days} days to be marked as busy, got #{the_days.size}."
     )
   end
 
