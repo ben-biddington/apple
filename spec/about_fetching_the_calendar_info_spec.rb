@@ -26,28 +26,40 @@ class CalendarEntryParser
       pattern = /When: #{date_pattern}(.+to #{date_pattern})?/
 
       match = pattern.match(text)
-      start = match[1]
-      _end = match[3]
+      start = to_date match[1].to_s
+
+      _end = nil
+
+      unless match[3].nil?
+        _end = to_date match[3].to_s 
+      end
 
       CalendarEntry.new start, _end 
+    end
+
+    private
+
+    def to_date(text)
+       Date.strptime(text, "%a %d %b %Y")
     end
   end
 end
 
 describe CalendarEntry do
   it "you can parse from text, examples" do
-    CalendarEntryParser.parse("When: Wed 31 Aug 2011 07:30 to 08:30").start.should === "Wed 31 Aug 2011"
+    result = CalendarEntryParser.parse("When: Wed 31 Aug 2011 07:30 to 08:30")
+    result.start.should === Date.new(2011, 8, 31)        
   end
 
   it "can parse start and end dates" do
     result = CalendarEntryParser.parse("When: Wed 31 Aug 2011 to Thu 01 Sep 2011")    
-    result.start.should === "Wed 31 Aug 2011"    
-    result.end.should === "Thu 01 Sep 2011"    
+    result.start.should === Date.new(2011, 8, 31)        
+    result.end.should === Date.new(2011, 9, 1)
   end
 
   it "even when both contain times" do 
-    result = CalendarEntryParser.parse("When: Wed 31 Aug 2011 13:37 to Thu 01 Sep 2011 13:37 ")    
-    result.start.should === "Wed 31 Aug 2011"    
-    result.end.should === "Thu 01 Sep 2011"    
+    result = CalendarEntryParser.parse("When: Wed 31 Aug 2011 13:37 to Thu 01 Sep 2011 13:37")    
+    result.start.should === Date.new(2011, 8, 31)    
+    result.end.should === Date.new(2011, 9, 1)
   end
 end
