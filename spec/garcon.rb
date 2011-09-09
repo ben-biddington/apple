@@ -8,7 +8,7 @@ module GarconDsl
     end
 
     def until(&block)
-      Garcon.new(1.second, @timeout).wait &block
+      Garcon.new(1, @timeout).wait &block
     end
   end
 

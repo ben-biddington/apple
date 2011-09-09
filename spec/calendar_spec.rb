@@ -10,9 +10,14 @@ describe "The calendar on the split apple rock site" do
     page.should have_content "Time zone offset (hours): -12"
   end
 
-  it "shows the correct days for whatever month is requested" do
-    visit "#{@base_url}?y=2011&m=sep"
-    page.should have_content "Time zone offset (hours): -12"
+  it "shows the correct number of days for whatever month is requested" do
+    visit "#{@base_url}?y=2011&m=9"
+
+    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span[@class='day']" }
+    
+    the_days = all("//div[@id='calendar']/span[@class='day']")
+
+    the_days.size.should(eql(30), "Expected 30 days, got #{the_days.size}")
   end
 
   it "shows a different calendar by setting month and/or year query parameters"
