@@ -4,6 +4,7 @@
   table#events tr td { border: 1px solid red; padding:2px; }
   div#calendar { border:1px solid green; width:350px; }
   div#calendar span.day { padding:2px; border:1px solid #EEE; width:50px; height:50px; float:left; margin:1px; }
+  div#calendar span.busy {background-color:red; color:white; font-weight:bold;}
 </style>
 </head>
 <body>
@@ -29,6 +30,8 @@
 
       var entries = feedRoot.feed.getEntries();
 
+      // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/atom/Entry.html
+      // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/EventEntry.html
       for (var item in entries) {
         var entry = entries[item];
     
@@ -50,7 +53,7 @@
 
       $("<p>Time zone offset (hours): " + timezoneOffsetInMinutes/60 + "</p>").appendTo("#events");
 
-      buildCalendar(year(), month());
+      buildCalendar(year(), month(), entries);
     }
 
     function year() {
@@ -63,10 +66,14 @@
 
     function onError(e) { }
 
+    // see: http://gdata-javascript-client.googlecode.com/svn/trunk/samples/calendar/simple_sample/simple_sample.html
+    // see: http://code.google.com/apis/gdata/jsdoc/2.2/index.html
     function getMyFeed() {
       calendar = new google.gdata.calendar.CalendarService('cl');
+      var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
+      query.setOrderBy('starttime');
 
-      calendar.getEventsFeed(feedUrl, onOkay, onError);
+      calendar.getEventsFeed(query, onOkay, onError);
     }
     
     function query(name) {
@@ -87,9 +94,45 @@
       $("<span>" + monthName(month) + " " + year + "</span>").appendTo("#calendar-title")
 
       for (var i = 1; i <= daysInMonth; i++) {
-        $("<span class=\"day\" id=\"calendar_day_" + i + "\">" + i + "</span>").appendTo("#calendar");
+        var busy = isBusy(entries, new Date(year, month-1, i));
+
+	var cssClass = busy ? "day busy" : "day";		   
+			   
+        $("<span class=\"" + cssClass +"\" id=\"calendar_day_" + i + "\">" + i + "</span>").appendTo("#calendar");
       }
     } 
+
+    // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/When.html
+    function isBusy(entries, when) {
+      when = zeroTime(when);
+      
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+	var times = entry.getTimes();
+
+        if (times.length > 0) {
+          var startDate = zeroTime(times[0].getStartTime().getDate());
+          var endDate = zeroTime(times[0].getEndTime().getDate());
+	  
+	  var isInInterval = startDate <= when && when <= endDate; 		  
+
+          if (isInInterval)
+            return true;
+        }
+      }	
+
+      return false;		   
+    }
+
+    function zeroTime(date) {
+      var result = new Date(date);
+
+      result.setHours(0);		   
+      result.setMinutes(0);		   
+      result.setSeconds(0);
+
+      return result;	      
+    }			   
 
     function monthName(num) {
       months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
