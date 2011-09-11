@@ -5,6 +5,9 @@
   div#calendar { border:1px solid green; width:350px; }
   div#calendar span.day { padding:2px; border:1px solid #EEE; width:50px; height:50px; float:left; margin:1px; }
   div#calendar span.busy {background-color:red; color:white; font-weight:bold;}
+  div#calendar #next_month { width: 25%; display:inline-block; float:right; text-align: right; } 
+  div#calendar #prev_month { width: 25%; display:inline-block; }
+  div#calendar #calendar-title-text { width: 50%; font-weight: bold; text-align: center;}
 </style>
 </head>
 <body>
@@ -37,11 +40,8 @@
 	    return item.getTimes().length > 0;
 	  }).getTimes()[0].getStartTime().getDate().getTimezoneOffset();
 
-          var model = { entries : entries, timezone : timezone }
-
-          new EntryView(model).render();
-
-          new CalendarView().render(year(), month(), entries);
+          new EntryView({ entries : entries, timezone : timezone }).render();
+          new CalendarView({ entries : entries, year : year(), month : month()}).render();
         }, 
         function(e) {}
       );

@@ -70,7 +70,7 @@ describe "The calendar on the split apple rock site" do
       page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month - 1}"
     end
 
-    it "previous month is december of the previous uear when month is january" do
+    it "previous month is december of the previous year when month is january" do
       month = 1
       year = 2011
 
