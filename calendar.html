@@ -13,43 +13,32 @@
   <script type="text/javascript" src="extensions.js"></script>
   <script type="text/javascript" src="query.js"></script>
   <script type="text/javascript" src="views/calendar.js"></script>
+  <script type="text/javascript" src="views/entryView.js"></script>
   <script language="javascript">
     google.load("gdata", "1");
     google.setOnLoadCallback(getMyFeed);
  
-    var myService;
-    var feedUrl = "https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com/public/full";
+    var calendarUrl = "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com";
 
-    function onOkay(feedRoot) {
-      console.log("Title => " + feedRoot.feed.title.toString());
-      console.log("Entries => " + feedRoot.feed.getEntries());
+    var feedUrl = "https://www.google.com/calendar/feeds/" + calendarUrl + "/public/full";
 
-      var entries = feedRoot.feed.getEntries();
+    // see: http://gdata-javascript-client.googlecode.com/svn/trunk/samples/calendar/simple_sample/simple_sample.html
+    // see: http://code.google.com/apis/gdata/jsdoc/2.2/index.html
+    function getMyFeed() {
+      calendar = new google.gdata.calendar.CalendarService('cl');
+      var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
+      query.setOrderBy('starttime');
 
-      // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/atom/Entry.html
-      // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/EventEntry.html
-      for (var item in entries) {
-        var entry = entries[item];
-    
-        var times = entry.getTimes();
-        var startDateTime = "Unknown";
-        var endDateTime = "Unknown";
-        var timezoneOffsetInMinutes = "Unknown"
+      calendar.getEventsFeed(query, 
+        function(feedRoot) {
+          var entries = feedRoot.feed.getEntries();
 
-        if (times.length > 0) {
-          var theDate = times[0].getStartTime().getDate();
-          startDateTime = theDate.toDateString(); 
-          var endDate = times[0].getEndTime().getDate();
-          endDateTime = endDate.toDateString();
-          timezoneOffsetInMinutes = theDate.getTimezoneOffset();
-        }
+          new EntryView(entries).render();
 
-        $("<tr><td>" + startDateTime + "</td><td>" + endDateTime + "</td><td>" + entry.getTitle().getText() + "</td></tr>").appendTo("#events");
-      }
-
-      $("<p>Time zone offset (hours): " + timezoneOffsetInMinutes/60 + "</p>").appendTo("#events");
-
-      new CalendarView().render(year(), month(), entries);
+          new CalendarView().render(year(), month(), entries);
+        }, 
+        function(e) {}
+      );
     }
 
     function year() {
@@ -62,18 +51,6 @@
       var query = new Query();
     
       return query.parameter("m") != null ? parseInt(query.parameter("m")) : 9;
-    }
-
-    function onError(e) { }
-
-    // see: http://gdata-javascript-client.googlecode.com/svn/trunk/samples/calendar/simple_sample/simple_sample.html
-    // see: http://code.google.com/apis/gdata/jsdoc/2.2/index.html
-    function getMyFeed() {
-      calendar = new google.gdata.calendar.CalendarService('cl');
-      var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
-      query.setOrderBy('starttime');
-
-      calendar.getEventsFeed(query, onOkay, onError);
     }
 
     function monthName(num) {
