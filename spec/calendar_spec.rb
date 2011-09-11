@@ -5,6 +5,10 @@ describe "The calendar on the split apple rock site" do
     @base_url = "file:///home/ben/sauce/split_apple_rock/calendar.html"
   end
 
+  let :calendar do 
+    CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
+  end
+
   it "shows the correct timezone" do
     visit @base_url
     page.should have_content "Time zone offset (hours): -12"
@@ -31,8 +35,6 @@ describe "The calendar on the split apple rock site" do
   private 
 
   def assert_busy_days(year, month)
-    calendar = CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"
-
     expected_number_of_busy_days = calendar.get_busy_days_for month
 
     visit "#{@base_url}?y=#{year}&m=#{month}"
