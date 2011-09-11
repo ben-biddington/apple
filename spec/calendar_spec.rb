@@ -57,6 +57,18 @@ describe "The calendar on the split apple rock site" do
 
       page.current_url.should == "#{@base_url}?y=#{year + 1}&m=#{1}"
     end
+
+    it "you can navigate to the previous month" do
+      month = 2
+
+      visit "#{@base_url}?y=#{2011}&m=#{month}"
+
+      within ("//div[@id='calendar']") do
+        click_link "prev_month"
+      end
+
+      page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month - 1}"
+    end
   end
 
   private 

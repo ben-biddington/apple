@@ -2,8 +2,6 @@ function CalendarView() {
     this.render = function(year, month, entries) {
 	var daysInMonth = new Date(year, month, 0).getDate();
 	
-	$("<span>" + monthName(month) + " " + year + "</span>").appendTo("#calendar-title")
-
 	for (var i = 1; i <= daysInMonth; i++) {
           var busy = isBusy(entries, new Date(year, month-1, i));
 
@@ -16,12 +14,31 @@ function CalendarView() {
     } 
 
     function renderControls(year, month) {
+	renderPrevButton(year, month);
+	renderTitle(year, month);
+	renderNextButton(year, month);
+    }
+
+    function renderPrevButton(year, month) {
+	var baseUrl = document.location.href.split("?")[0];
+	var prevMonth = month == 12 ? 1 : month - 1;
+	var prevYear = month == 12 ? year - 1 : year;
+
+	var fullUrl = baseUrl + "?" + "y=" + prevYear + "&m=" + prevMonth;
+	$("<a href='" + fullUrl + "' id='prev_month'>prev</a>").appendTo("#calendar-title");
+    }
+
+    function renderNextButton(year, month) {
 	var nextMonth = month == 12 ? 1 : month+1;
 	var nextYear = month == 12 ? year + 1 : year;
 	var baseUrl = document.location.href.split("?")[0];
 
 	var fullUrl = baseUrl + "?" + "y=" + nextYear + "&m=" + nextMonth;
-	$("<a href='" + fullUrl + "' id='next_month'>next</a>").appendTo("#calendar-title");
+	$("<a href='" + fullUrl + "' id='next_month'>next</a>").appendTo("#calendar-title");	
+    }
+
+    function renderTitle(year, month) {
+	$("<span>" + monthName(month) + " " + year + "</span>").appendTo("#calendar-title")
     }
 
     // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/When.html
