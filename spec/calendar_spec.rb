@@ -32,6 +32,18 @@ describe "The calendar on the split apple rock site" do
     assert_busy_days 2011,8
   end
 
+  it "you can navigate to the next month" do
+    month = 1
+
+    visit "#{@base_url}?y=#{2011}&m=#{month}"
+
+    within ("//div[@id='calendar']") do
+      click_link "next_month"
+    end
+
+    page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month + 1}"
+  end
+
   private 
 
   def assert_busy_days(year, month)
