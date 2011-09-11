@@ -10,21 +10,13 @@
 <body>
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script type="text/javascript" src="jquery-1.6.3.min.js"></script>
+  <script type="text/javascript" src="extensions.js"></script>
+  <script type="text/javascript" src="query.js"></script>
+  <script type="text/javascript" src="views/calendar.js"></script>
   <script language="javascript">
-    Date.prototype.equals = function(otherDate) {
-      return this-otherDate == 0;
-    }
-
     google.load("gdata", "1");
     google.setOnLoadCallback(getMyFeed);
  
-    console.log("year => "+ query("y"))
-    console.log("month => "+ query("m"))
-
-    var daysInMonth = new Date(parseInt(query("y")), parseInt(query("m")), 0).getDate();
-
-    console.log("Days in " + query("m") + " = " + daysInMonth);
-
     var myService;
     var feedUrl = "https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com/public/full";
 
@@ -57,15 +49,19 @@
 
       $("<p>Time zone offset (hours): " + timezoneOffsetInMinutes/60 + "</p>").appendTo("#events");
 
-      buildCalendar(year(), month(), entries);
+      new CalendarView().render(year(), month(), entries);
     }
 
     function year() {
-      return query("y") != null ? parseInt(query("y")) : 2011;
+      var query = new Query();
+    
+      return query.parameter("y") != null ? parseInt(query.parameter("y")) : 2011;
     }
 
     function month() {
-      return query("m") != null ? parseInt(query("m")) : 9;    
+      var query = new Query();
+    
+      return query.parameter("m") != null ? parseInt(query.parameter("m")) : 9;
     }
 
     function onError(e) { }
@@ -79,68 +75,6 @@
 
       calendar.getEventsFeed(query, onOkay, onError);
     }
-    
-    function query(name) {
-      name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-      var regexS = "[\\?&]" + name + "=([^&#]*)";
-      var regex = new RegExp(regexS);
-      var results = regex.exec(window.location.href);
-      
-      if(results == null)
-        return null;
-      else
-        return decodeURIComponent(results[1].replace(/\+/g, " "));
-     }
-
-    function buildCalendar(year, month, entries) {
-      var daysInMonth = new Date(year, month, 0).getDate();
-
-      $("<span>" + monthName(month) + " " + year + "</span>").appendTo("#calendar-title")
-
-      for (var i = 1; i <= daysInMonth; i++) {
-        var busy = isBusy(entries, new Date(year, month-1, i));
-
-	var cssClass = busy ? "day busy" : "day";		   
-			   
-        $("<span class=\"" + cssClass +"\" id=\"calendar_day_" + i + "\">" + i + "</span>").appendTo("#calendar");
-      }
-    } 
-
-    // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/When.html
-    function isBusy(entries, when) {
-      when = zeroTime(when);
-      
-      for (var i = 0; i < entries.length; i++) {
-        var entry = entries[i];
-	var times = entry.getTimes();
-
-        if (times.length > 0) {
-          var startDate = zeroTime(times[0].getStartTime().getDate());
-          var endDate = zeroTime(times[0].getEndTime().getDate());
-
-	  var isOneDayEntry = startDate.equals(endDate)		   
-	  var isOnSingleDay = isOneDayEntry && when.equals(startDate);
-           		   
-	  var isInInterval = isOneDayEntry ? when.equals(startDate) : startDate <= when && when < endDate; 		  
-
-          if (isInInterval) {
-            return true;
-          }
-        }
-      }	
-
-      return false;		   
-    }
-
-    function zeroTime(date) {
-      var result = new Date(date);
-
-      result.setHours(0);		   
-      result.setMinutes(0);		   
-      result.setSeconds(0);
-
-      return result;	      
-    }			   
 
     function monthName(num) {
       months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
