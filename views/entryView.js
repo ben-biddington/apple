@@ -1,32 +1,14 @@
-function EntryView(entries) {
-    var _entries = entries;
+function EntryView(model) {
+    var _model = model;
 
     this.render = function() {
 	// see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/atom/Entry.html
 	// see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/EventEntry.html
-	for (var item in _entries) {
-	    render(entries[item]);
+	for (var i = 0; i < _model.entries.length; i++) {
+	    render(_model.entries[i]);
 	}
 
-	$("<p>Time zone offset (hours): " + timezone()/60 + "</p>").appendTo("#events");
-    }
-
-    function timezone() {
-	return first(function(item) { 
-	    return item.getTimes().length > 0;
-	}).getTimes()[0].getStartTime().getDate().getTimezoneOffset();
-    } 
-
-    function first(matching) {
-	for (var i = 0; i < _entries.length; i++) {
-	    var entry = _entries[i];
-            
-	    if (matching(entry) == true) {
-		return _entries[i];
-	    }
-        }
-
-	return null;
+	$("<p>Time zone offset (hours): " + model.timezone/60 + "</p>").appendTo("#events");
     }
 
     function render(entry) {

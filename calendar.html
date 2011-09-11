@@ -33,13 +33,25 @@
         function(feedRoot) {
           var entries = feedRoot.feed.getEntries();
 
-          new EntryView(entries).render();
+          var timezone = entries.first(function(item) { 
+	    return item.getTimes().length > 0;
+	  }).getTimes()[0].getStartTime().getDate().getTimezoneOffset();
+
+          var model = { entries : entries, timezone : timezone }
+
+          new EntryView(model).render();
 
           new CalendarView().render(year(), month(), entries);
         }, 
         function(e) {}
       );
     }
+
+    function timezone() {
+	return first(function(item) { 
+	    return item.getTimes().length > 0;
+	}).getTimes()[0].getStartTime().getDate().getTimezoneOffset();
+    } 
 
     function year() {
       var query = new Query();
