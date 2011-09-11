@@ -11,6 +11,10 @@
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script type="text/javascript" src="jquery-1.6.3.min.js"></script>
   <script language="javascript">
+    Date.prototype.equals = function(otherDate) {
+      return this-otherDate == 0;
+    }
+
     google.load("gdata", "1");
     google.setOnLoadCallback(getMyFeed);
  
@@ -113,12 +117,14 @@
         if (times.length > 0) {
           var startDate = zeroTime(times[0].getStartTime().getDate());
           var endDate = zeroTime(times[0].getEndTime().getDate());
-	  
-	  var isInInterval = startDate <= when && when < endDate; 		  
+
+	  var isOneDayEntry = startDate.equals(endDate)		   
+	  var isOnSingleDay = isOneDayEntry && when.equals(startDate);
+           		   
+	  var isInInterval = isOneDayEntry ? when.equals(startDate) : startDate <= when && when < endDate; 		  
 
           if (isInInterval) {
-	   console.log(startDate + " <= " + when + " <= " + endDate);
-           return true;
+            return true;
           }
         }
       }	

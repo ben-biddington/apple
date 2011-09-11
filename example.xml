@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/' xmlns:gCal='http://schemas.google.com/gCal/2005' xmlns:gd='http://schemas.google.com/g/2005'>
+<id>http://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic</id>
+<updated>2011-09-07T23:56:40.000Z</updated>
+<category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event'/>
+<title type='text'>full</title>
+<subtitle type='text'/>
+<link rel='alternate' type='text/html' href='https://www.google.com/calendar/embed?src=vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com'/>
+<link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic'/>
+<link rel='http://schemas.google.com/g/2005#batch' type='application/atom+xml' href='https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/batch'/>
+<link rel='self' type='application/atom+xml' href='https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic?max-results=25'/>
+<author><name>full</name></author>
+<generator version='1.0' uri='http://www.google.com/calendar'>Google Calendar</generator>
+<openSearch:totalResults>3</openSearch:totalResults>
+<openSearch:startIndex>1</openSearch:startIndex><openSearch:itemsPerPage>25</openSearch:itemsPerPage>
+<gCal:timezone value='Pacific/Auckland'/>
+<gCal:timesCleaned value='0'/>
+<gd:where valueString=''/>
+<entry>
+  <id>http://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/f8iui659ku83887efhq9e8fs80</id>
+  <published>2011-09-07T23:56:40.000Z</published>
+  <updated>2011-09-07T23:56:40.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event'/>
+  <title type='html'>August example</title>
+  <summary type='html'>When: Wed 31 Aug 2011 07:30 to 08:30&amp;nbsp;
+NZST&lt;br&gt;
+
+
+&lt;br&gt;Event Status: confirmed</summary><content type='html'>When: Wed 31 Aug 2011 07:30 to 08:30 
+NZST&lt;br /&gt;
+
+
+&lt;br /&gt;Event Status: confirmed</content><link rel='alternate' type='text/html' href='https://www.google.com/calendar/event?eid=ZjhpdWk2NTlrdTgzODg3ZWZocTllOGZzODAgdmRkcDJycTJmMGoxYXN2MTAzbjZqcHMyb2dAZw' title='alternate'/><link rel='self' type='application/atom+xml' href='https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/f8iui659ku83887efhq9e8fs80'/><author><name>full</name></author></entry><entry><id>http://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/8332tjfqudrq58stffrdi3ib1k</id><published>2011-09-07T23:55:11.000Z</published><updated>2011-09-07T23:55:11.000Z</updated><category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event'/><title type='html'>Another booking</title><summary type='html'>When: Sun 11 Sep 2011&lt;br&gt;
+
+
+&lt;br&gt;Event Status: confirmed</summary><content type='html'>When: Sun 11 Sep 2011&lt;br /&gt;
+
+
+&lt;br /&gt;Event Status: confirmed</content><link rel='alternate' type='text/html' href='https://www.google.com/calendar/event?eid=ODMzMnRqZnF1ZHJxNThzdGZmcmRpM2liMWsgdmRkcDJycTJmMGoxYXN2MTAzbjZqcHMyb2dAZw' title='alternate'/><link rel='self' type='application/atom+xml' href='https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/8332tjfqudrq58stffrdi3ib1k'/><author><name>full</name></author></entry><entry><id>http://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/3tghtbjq3aos38ho3l6bnsqong</id><published>2011-09-07T23:37:22.000Z</published><updated>2011-09-07T23:41:55.000Z</updated><category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event'/><title type='html'>Example booking for three days</title><summary type='html'>When: Thu 8 Sep 2011 to Sat 10 Sep 2011&amp;nbsp;
+&lt;br&gt;
+
+
+&lt;br&gt;Event Status: confirmed</summary><content type='html'>When: Thu 8 Sep 2011 to Sat 10 Sep 2011 
+&lt;br /&gt;
+
+
+&lt;br /&gt;Event Status: confirmed</content><link rel='alternate' type='text/html' href='https://www.google.com/calendar/event?eid=M3RnaHRianEzYW9zMzhobzNsNmJuc3FvbmcgdmRkcDJycTJmMGoxYXN2MTAzbjZqcHMyb2dAZw' title='alternate'/><link rel='self' type='application/atom+xml' href='https://www.google.com/calendar/feeds/vddp2rq2f0j1asv103n6jps2og%40group.calendar.google.com/public/basic/3tghtbjq3aos38ho3l6bnsqong'/><author><name>full</name></author></entry></feed>

@@ -20,21 +20,30 @@ describe "The calendar on the split apple rock site" do
     the_days.size.should(eql(30), "Expected 30 days, got #{the_days.size}")
   end
 
-  it "shows busy days" do
+  it "shows busy days for september 2011 (events spanning multiple days)" do
+    assert_busy_days 2011,9   
+  end
+
+  it "shows busy days for august 2011 (single-day events)" do
+    assert_busy_days 2011,8
+  end
+
+  private 
+
+  def assert_busy_days(year, month)
     calendar = CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"
 
-    september = 9
+    expected_number_of_busy_days = calendar.get_busy_days_for month
 
-    visit "#{@base_url}?y=2011&m=#{september}"
+    visit "#{@base_url}?y=#{year}&m=#{month}"
 
     wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span[@class='day']" }
     
-    the_days = all("//div[@id='calendar']/span[@class='day busy']")
+    actual_number_of_busy_days = all("//div[@id='calendar']/span[@class='day busy']").size
 
-    total_days = calendar.get_busy_days_for september
-
-    the_days.size.should(eql(total_days), 
-      "Expected #{total_days} days to be marked as busy, got #{the_days.size}."
+    actual_number_of_busy_days.should(eql(expected_number_of_busy_days), 
+      "Expected #{expected_number_of_busy_days} days to be marked as busy, " + 
+      "got #{actual_number_of_busy_days}."
     )
   end
 
