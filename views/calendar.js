@@ -20,9 +20,9 @@ function CalendarView() {
     }
 
     function renderPrevButton(year, month) {
-	var baseUrl = document.location.href.split("?")[0];
-	var prevMonth = month == 12 ? 1 : month - 1;
-	var prevYear = month == 12 ? year - 1 : year;
+	var baseUrl   = document.location.href.split("?")[0];
+	var prevMonth = month == 1 ? 12 : month - 1;
+	var prevYear  = month == 1 ? year - 1 : year;
 
 	var fullUrl = baseUrl + "?" + "y=" + prevYear + "&m=" + prevMonth;
 	$("<a href='" + fullUrl + "' id='prev_month'>prev</a>").appendTo("#calendar-title");
@@ -30,8 +30,8 @@ function CalendarView() {
 
     function renderNextButton(year, month) {
 	var nextMonth = month == 12 ? 1 : month+1;
-	var nextYear = month == 12 ? year + 1 : year;
-	var baseUrl = document.location.href.split("?")[0];
+	var nextYear  = month == 12 ? year + 1 : year;
+	var baseUrl   = document.location.href.split("?")[0];
 
 	var fullUrl = baseUrl + "?" + "y=" + nextYear + "&m=" + nextMonth;
 	$("<a href='" + fullUrl + "' id='next_month'>next</a>").appendTo("#calendar-title");	
