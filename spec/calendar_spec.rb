@@ -32,16 +32,31 @@ describe "The calendar on the split apple rock site" do
     assert_busy_days 2011,8
   end
 
-  it "you can navigate to the next month" do
-    month = 1
+  context "navigating between months" do
+    it "you can navigate to the next month" do
+      month = 1
 
-    visit "#{@base_url}?y=#{2011}&m=#{month}"
+      visit "#{@base_url}?y=#{2011}&m=#{month}"
 
-    within ("//div[@id='calendar']") do
-      click_link "next_month"
+      within ("//div[@id='calendar']") do
+        click_link "next_month"
+      end
+
+      page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month + 1}"
     end
 
-    page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month + 1}"
+    it "next month is january of the following year when month is december" do 
+      month = 12
+      year = 2011
+
+      visit "#{@base_url}?y=#{year}&m=#{month}"
+
+      within ("//div[@id='calendar']") do
+        click_link "next_month"
+      end
+
+      page.current_url.should == "#{@base_url}?y=#{year + 1}&m=#{1}"
+    end
   end
 
   private 

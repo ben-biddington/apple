@@ -16,10 +16,11 @@ function CalendarView() {
     } 
 
     function renderControls(year, month) {
-	var nextMonth = month+1;
+	var nextMonth = month == 12 ? 1 : month+1;
+	var nextYear = month == 12 ? year + 1 : year;
 	var baseUrl = document.location.href.split("?")[0];
 
-	var fullUrl = baseUrl + "?" + "y=" + year + "&m=" + nextMonth;
+	var fullUrl = baseUrl + "?" + "y=" + nextYear + "&m=" + nextMonth;
 	$("<a href='" + fullUrl + "' id='next_month'>next</a>").appendTo("#calendar-title");
     }
 
