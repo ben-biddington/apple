@@ -16,7 +16,7 @@
   <script type="text/javascript" src="views/entryView.js"></script>
   <script language="javascript">
     google.load("gdata", "1");
-    google.setOnLoadCallback(getMyFeed);
+    google.setOnLoadCallback(load);
  
     var calendarUrl = "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com";
 
@@ -24,7 +24,7 @@
 
     // see: http://gdata-javascript-client.googlecode.com/svn/trunk/samples/calendar/simple_sample/simple_sample.html
     // see: http://code.google.com/apis/gdata/jsdoc/2.2/index.html
-    function getMyFeed() {
+    function load() {
       calendar = new google.gdata.calendar.CalendarService('cl');
       var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
       query.setOrderBy('starttime');
