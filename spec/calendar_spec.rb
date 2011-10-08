@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "The calendar on the split apple rock site" do 
   before :all do
-    @base_url = "file:///home/ben/sauce/split_apple_rock/calendar.html"
+    @base_url = "file:///home/ben/sauce/split_apple_rock/public_html/calendar.html"
   end
 
   let :calendar do 
