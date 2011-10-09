@@ -2,16 +2,41 @@ function CalendarView(model) {
     this.render = function() {
 	var daysInMonth = new Date(model.year, model.month, 0).getDate();
 	
-	for (var i = 1; i <= daysInMonth; i++) {
-          var busy = isBusyOn(new Date(model.year, model.month-1, i));
+	var theFirstDayOfTheMonth = new Date(model.year, model.month-1, 0);
 
-	    var cssClass = busy ? "day busy" : "day";		   
+	if (theFirstDayOfTheMonth.getDay() != 1) {
+	    daysInMonth += (theFirstDayOfTheMonth.getDay() - 1);
+	}
+
+	var theDayToStartDrawingAt = theFirstDayOfTheMonth.getDay();  
+
+	for (var i = 1; i <= daysInMonth+1; i++) {
+	    if (i > theDayToStartDrawingAt) {
+		theDate = new Date(model.year, model.month-1, i);
+
+		var busy = isBusyOn(theDate);
+		
+		var cssClass = busy ? "day busy" : "day";		   
 	    
-            $("<span class=\"" + cssClass +"\" id=\"calendar_day_" + i + "\">" + i + "</span>").appendTo("#calendar");
+		var theNumberToDraw = i - theDayToStartDrawingAt;
+
+		$("<span class=\"" + cssClass +"\" id=\"calendar_day_" + theNumberToDraw + "\">" + theNumberToDraw + "</span>").appendTo("#calendar");
+	    } else {
+		$("<span class=\"" + "day" +"\" id=\"calendar_day_" + i + "\">" + "&nbsp;" + "</span>").appendTo("#calendar");
+	    }
 	}
 
 	renderControls(year, month);
+	renderDayHeadings();
     } 
+
+    function renderDayHeadings() {
+	var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+	for (var i = 0; i < 7; i++) {
+	    $("<span class=\"dayname\">" + days[i] + "</span>").appendTo("#calendar-days");	
+	}
+    }
 
     function renderControls() {
 	renderPrevButton();

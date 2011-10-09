@@ -6,7 +6,7 @@
   <style type="text/css" media="all">
     @import"css/splitapple.css"; 
     div#calendar { border:1px solid green; }
-    div#calendar span.day { padding:2px; border:1px solid #EEE; width:50px; height:50px; float:left; margin:1px; }
+    div#calendar span.day,div#calendar span.dayname { padding:2px; border:1px solid #EEE; width:50px; height:50px; float:left; margin:1px; background-color: white; opacity: 0.5; }
     div#calendar span.busy { background-color:red; color:white; font-weight:bold;}
     div#calendar #next_month { width: 25%; display:inline-block; float:right; text-align: right; } 
     div#calendar #prev_month { width: 25%; display:inline-block; }
@@ -38,6 +38,7 @@
 	<div class="text">
 	  <div id="calendar">
 	    <div id="calendar-title"></div>
+	    <div id="calendar-days"></div>
 	  </div>
 	  <div id="events"></div>
 	</div>

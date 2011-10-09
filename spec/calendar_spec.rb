@@ -9,11 +9,6 @@ describe "The calendar on the split apple rock site" do
     CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
   end
 
-  it "shows the correct timezone" do
-    visit @base_url
-    page.should have_content "Time zone offset (hours): -12"
-  end
-
   it "shows the correct number of days for whatever month is requested" do
     visit "#{@base_url}?y=2011&m=9"
 
@@ -21,7 +16,36 @@ describe "The calendar on the split apple rock site" do
     
     the_days = all("//div[@id='calendar']/span")
 
-    the_days.size.should(eql(30), "Expected 30 days, got #{the_days.size}")
+    the_number_of_extra_days = Date.parse("01-Sep-2011").cwday - 1
+
+    expected_number_of_days = 30 + the_number_of_extra_days 
+
+    the_days.size.should(eql(expected_number_of_days), "Expected #{expected_number_of_days} days, got #{the_days.size}")
+
+    visit "#{@base_url}?y=2011&m=10"
+
+    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
+    
+    the_days = all("//div[@id='calendar']/span")
+
+    the_number_of_extra_days = Date.parse("01-Oct-2011").cwday - 1
+
+    expected_number_of_days = 31 + the_number_of_extra_days 
+
+    the_days.size.should(eql(expected_number_of_days), "Expected #{expected_number_of_days} days, got #{the_days.size}")
+
+  end
+
+  it "starts each row on a monday" do 
+    visit "#{@base_url}?y=2011&m=9"
+
+    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
+    
+    the_days = all("//div[@id='calendar']/span")
+
+    the_4th_day_text = the_days[3].text
+
+    the_4th_day_text.should eql("1"), "Expected the first of the month to be displayed as the 4th Item In The Calendar, Instead it shows #{the_4th_day_text}"
   end
 
   it "shows busy days for september 2011 (events spanning multiple days)" do
