@@ -16,7 +16,11 @@ describe "The calendar on the split apple rock site" do
   end
 
   def method_missing(name, *args) 
-    /(\w{3})_(\w{4})_shows_(\d+)_days$/.match(name) do |match|
+    okay = false
+
+    if match = /(\w{3})_(\w{4})_shows_(\d+)_days$/.match(name)
+      okay = true
+
       month_names = Date::ABBR_MONTHNAMES.map{|s| s.downcase if s}
 
       month_name = match[1]
@@ -35,6 +39,8 @@ describe "The calendar on the split apple rock site" do
       the_days.size.should(eql(expected_number_of_days), 
         "Expected #{expected_number_of_days} days, got #{the_days.size}"
       )
+    else
+      super(name, args) unless okay
     end
   end
 
