@@ -10,30 +10,32 @@ describe "The calendar on the split apple rock site" do
   end
 
   it "shows the correct number of days for whatever month is requested" do
-    visit "#{@base_url}?y=2011&m=9"
+    assert_that_sep_2011_shows_33_days
+    assert_that_oct_2011_shows_36_days
+    assert_that_jan_2012_shows_37_days
+  end
 
-    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
+  def method_missing(name, *args) 
+    /(\w{3})_(\w{4})_shows_(\d+)_days$/.match(name) do |match|
+      month_names = Date::ABBR_MONTHNAMES.map{|s| s.downcase if s}
+
+      month_name = match[1]
+      month_index = month_names.index month_name
+      year = match[2].to_i
+      expected_number_of_days = match[3].to_i
+      
+      the_url = "#{@base_url}?y=#{year}&m=#{month_index}"
+
+      visit the_url
+
+      wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
     
-    the_days = all("//div[@id='calendar']/span")
+      the_days = all("//div[@id='calendar']/span")
 
-    the_number_of_extra_days = Date.parse("01-Sep-2011").cwday - 1
-
-    expected_number_of_days = 30 + the_number_of_extra_days 
-
-    the_days.size.should(eql(expected_number_of_days), "Expected #{expected_number_of_days} days, got #{the_days.size}")
-
-    visit "#{@base_url}?y=2011&m=10"
-
-    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
-    
-    the_days = all("//div[@id='calendar']/span")
-
-    the_number_of_extra_days = Date.parse("01-Oct-2011").cwday - 1
-
-    expected_number_of_days = 31 + the_number_of_extra_days 
-
-    the_days.size.should(eql(expected_number_of_days), "Expected #{expected_number_of_days} days, got #{the_days.size}")
-
+      the_days.size.should(eql(expected_number_of_days), 
+        "Expected #{expected_number_of_days} days, got #{the_days.size}"
+      )
+    end
   end
 
   it "starts each row on a monday" do 
