@@ -3,6 +3,7 @@ require "capybara"
 require "capybara/dsl"
 require "capybara-webkit"
 require "garcon"
+require "acceptance_test"
 
 dir = File.dirname(File.expand_path(__FILE__))
 
