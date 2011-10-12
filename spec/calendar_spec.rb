@@ -1,9 +1,7 @@
 require "spec_helper"
 
 describe "The calendar on the split apple rock site" do 
-  before :all do
-    @base_url = "file:///home/ben/sauce/split_apple_rock/public_html/calendar.html"
-  end
+  let(:base_url){"file:///home/ben/sauce/split_apple_rock/public_html/calendar.html"}
 
   let :calendar do 
     CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
@@ -13,6 +11,10 @@ describe "The calendar on the split apple rock site" do
     assert_that_sep_2011_shows_33_days
     assert_that_oct_2011_shows_36_days
     assert_that_jan_2012_shows_37_days
+  end
+
+  it "shows the days for the previous month if there are any" do
+  
   end
 
   def method_missing(name, *args) 
@@ -28,7 +30,7 @@ describe "The calendar on the split apple rock site" do
       year = match[2].to_i
       expected_number_of_days = match[3].to_i
       
-      the_url = "#{@base_url}?y=#{year}&m=#{month_index}"
+      the_url = "#{base_url}?y=#{year}&m=#{month_index}"
 
       visit the_url
 
@@ -45,7 +47,7 @@ describe "The calendar on the split apple rock site" do
   end
 
   it "starts each row on a monday" do 
-    visit "#{@base_url}?y=2011&m=9"
+    visit "#{base_url}?y=2011&m=9"
 
     wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
     
@@ -68,51 +70,51 @@ describe "The calendar on the split apple rock site" do
     it "you can navigate to the next month" do
       month = 1
 
-      visit "#{@base_url}?y=#{2011}&m=#{month}"
+      visit "#{base_url}?y=#{2011}&m=#{month}"
 
       within ("//div[@id='calendar']") do
         click_link "next_month"
       end
 
-      page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month + 1}"
+      page.current_url.should == "#{base_url}?y=#{2011}&m=#{month + 1}"
     end
 
     it "next month is january of the following year when month is december" do 
       month = 12
       year = 2011
 
-      visit "#{@base_url}?y=#{year}&m=#{month}"
+      visit "#{base_url}?y=#{year}&m=#{month}"
 
       within ("//div[@id='calendar']") do
         click_link "next_month"
       end
 
-      page.current_url.should == "#{@base_url}?y=#{year + 1}&m=#{1}"
+      page.current_url.should == "#{base_url}?y=#{year + 1}&m=#{1}"
     end
 
     it "you can navigate to the previous month" do
       month = 2
 
-      visit "#{@base_url}?y=#{2011}&m=#{month}"
+      visit "#{base_url}?y=#{2011}&m=#{month}"
 
       within ("//div[@id='calendar']") do
         click_link "prev_month"
       end
 
-      page.current_url.should == "#{@base_url}?y=#{2011}&m=#{month - 1}"
+      page.current_url.should == "#{base_url}?y=#{2011}&m=#{month - 1}"
     end
 
     it "previous month is december of the previous year when month is january" do
       month = 1
       year = 2011
 
-      visit "#{@base_url}?y=#{year}&m=#{month}"
+      visit "#{base_url}?y=#{year}&m=#{month}"
 
       within ("//div[@id='calendar']") do
         click_link "prev_month"
       end
 
-      page.current_url.should == "#{@base_url}?y=#{year - 1}&m=#{12}"
+      page.current_url.should == "#{base_url}?y=#{year - 1}&m=#{12}"
     end
   end
 
@@ -121,7 +123,7 @@ describe "The calendar on the split apple rock site" do
   def assert_busy_days(year, month)
     expected_number_of_busy_days = calendar.get_busy_days_for month
 
-    visit "#{@base_url}?y=#{year}&m=#{month}"
+    visit "#{base_url}?y=#{year}&m=#{month}"
 
     wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span[@class='day']" }
     
