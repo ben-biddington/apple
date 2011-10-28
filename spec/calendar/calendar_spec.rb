@@ -13,10 +13,8 @@ describe "The calendar on the split apple rock site" do
     assert_that_jan_2012_shows_37_days
   end
 
-  it "shows the days for the previous month if there are any" do
-    puts days_in 2011, 10
-  end
-
+  it "shows the days for the previous month if there are any"
+ 
   it "starts each row on a monday" do 
     visit "#{base_url}?y=2011&m=9"
 
@@ -26,7 +24,10 @@ describe "The calendar on the split apple rock site" do
 
     the_4th_day_text = the_days[3].text
 
-    the_4th_day_text.should eql("1"), "Expected the first of the month to be displayed as the 4th Item In The Calendar, Instead it shows #{the_4th_day_text}"
+    the_4th_day_text.should(eql("1"), 
+      "Expected the first of the month to be displayed as the 4th item " + 
+      "in the calendar, instead it shows #{the_4th_day_text}"
+    )
   end
 
   it "shows busy days for september 2011 (events spanning multiple days)" do
