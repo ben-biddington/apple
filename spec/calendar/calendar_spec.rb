@@ -25,9 +25,26 @@ describe "The calendar on the split apple rock site" do
 
     all_days = find_all_days
 
-    all_days[0].text.to_i.should(eql(the_number_of_days_in_nov_2011 - 2))
-    all_days[1].text.to_i.should(eql(the_number_of_days_in_nov_2011 - 1))
-    all_days[2].text.to_i.should(eql(the_number_of_days_in_nov_2011 - 0))
+    (0..2).each do |i|
+      all_days[i].text.to_i.should(eql(the_number_of_days_in_nov_2011 - 2 + i))
+    end
+  end
+
+  it "shows the days for the previous month even when the current month is january" do
+    the_number_of_days_in_jan_2012 = days_in 2012, 1 # 1st is a thursday
+    the_number_of_days_in_dec_2011 = days_in 2011, 12
+    
+    expected_number_of_days_from_dec_2011 = 6
+
+    visit "#{base_url}?y=2012&m=1"
+
+    wait_until_loaded    
+
+    all_days = find_all_days
+
+    (0..5).each do |i|
+      all_days[i].text.to_i.should(eql(the_number_of_days_in_dec_2011 - 5 + i))
+    end
   end
  
   it "starts each row on a monday" do 

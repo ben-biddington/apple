@@ -1,6 +1,7 @@
 function CalendarView(model) {
     this.render = function() {
 	var daysInMonth = new Date(model.year, model.month, 0).getDate();
+	
 	var theDaysInPreviousMonth = new Date(model.year, model.month - 1, 0).getDate();
 	
 	var theFirstDayOfTheMonth = new Date(model.year, model.month-1, 0);
