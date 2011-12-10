@@ -65,7 +65,7 @@ describe "The calendar on the split apple rock site" do
   it "starts each row on a monday" do 
     visit "#{base_url}?y=2011&m=9"
 
-    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
+    wait_until_loaded
     
     the_days = find_all_days
 
@@ -91,8 +91,8 @@ describe "The calendar on the split apple rock site" do
     expected_number_of_busy_days = calendar.get_busy_days_for month
 
     visit "#{base_url}?y=#{year}&m=#{month}"
-
-    wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span[@class='day']" }
+    
+    wait_until_loaded
     
     actual_number_of_busy_days = all("//div[@id='calendar']/span[@class='day busy']").size
 
@@ -100,10 +100,6 @@ describe "The calendar on the split apple rock site" do
       "Expected #{expected_number_of_busy_days} days to be marked as busy, " + 
       "got #{actual_number_of_busy_days}."
     )
-  end
-
-  def find_all_days
-    all("//div[@id='calendar']/span")
   end
 
   def days_in(year, month_index) 
@@ -123,7 +119,7 @@ describe "The calendar on the split apple rock site" do
 
       visit the_url
 
-      wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }
+      wait_until_loaded
     
       the_days = find_all_days
 
@@ -133,6 +129,10 @@ describe "The calendar on the split apple rock site" do
     else
       super(name, args) 
     end
+  end
+
+  def find_all_days
+    all("//div[@id='calendar']/span")
   end
 
   def wait_until_loaded
