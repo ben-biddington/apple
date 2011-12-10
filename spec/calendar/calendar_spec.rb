@@ -7,13 +7,13 @@ describe "The calendar on the split apple rock site" do
     CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
   end
 
-  it "shows the correct number of days for whatever month is requested" do
+  it "shows the correct number of days for the requested month" do
     assert_that_sep_2011_shows_33_days
     assert_that_oct_2011_shows_36_days
     assert_that_jan_2012_shows_37_days
   end
 
-  it "shows the days for the previous month if there are any" do
+  it "shows the days for the month prior to the requested month if there are any" do
     the_number_of_days_in_nov_2011 = days_in 2011, 11
     
     expected_number_of_days_from_nov = 3
@@ -29,7 +29,7 @@ describe "The calendar on the split apple rock site" do
     end
   end
 
-  it "shows the days for the previous month even when the current month is january" do
+  it "shows the days for the month prior to the requested month even when the requested month is january" do
     the_number_of_days_in_dec_2011 = days_in 2011, 12
     
     expected_number_of_days_from_dec_2011 = 6
@@ -45,7 +45,7 @@ describe "The calendar on the split apple rock site" do
     end
   end
 
-  it "shows the days for the previous month even when the current month is march and it is a leap year" do
+  it "shows the days for the month prior to the requested month even when the requested month is march in a leap year" do
     the_number_of_days_in_feb_2000 = days_in 2000, 2
     the_number_of_days_in_feb_2000.should eql(29), "Invalid test data -- must be a leap year"
 
