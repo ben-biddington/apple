@@ -85,6 +85,12 @@ describe "The calendar on the split apple rock site" do
     assert_busy_days 2011,8
   end
 
+  it "shows a different calendar by setting month and/or year query parameters"
+  it "shows all the the calendar items for the requested month"
+  it "uses the current year and month if either year or month is invalid"
+  it "shows a message if either if either year or month is invalid"
+  it "shows busy days for the previous month too"
+
   private 
 
   def assert_busy_days(year, month)
@@ -138,10 +144,4 @@ describe "The calendar on the split apple rock site" do
   def wait_until_loaded
     wait.for(5.seconds).until { page.has_xpath? "//div[@id='calendar']/span" }; 
   end
-
-  it "shows a different calendar by setting month and/or year query parameters"
-  it "shows all the the calendar items for the requested month"
-  it "uses the current year and month if either year or month is invalid"
-  it "shows a message if either if either year or month is invalid"
-  it "shows busy days for the previous month too"
 end
