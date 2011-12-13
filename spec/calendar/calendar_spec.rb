@@ -85,8 +85,21 @@ describe "The calendar on the split apple rock site" do
     assert_busy_days 2011,8
   end
 
+  it "shows the current month by default" do
+    visit "#{base_url}"
+
+    wait_until_loaded
+    
+    today = Date.today
+    
+    title = find_by_id("calendar-title-text").text
+
+    expected_title = "#{Date::ABBR_MONTHNAMES[today.month]} #{today.year}"
+    
+    title.should === expected_title
+  end
+
   it "shows a different calendar by setting month and/or year query parameters"
-  it "shows all the the calendar items for the requested month"
   it "uses the current year and month if either year or month is invalid"
   it "shows a message if either if either year or month is invalid"
   it "shows busy days for the previous month too"

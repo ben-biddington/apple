@@ -82,13 +82,13 @@
     function year() {
       var query = new Query();
     
-      return query.parameter("y") != null ? parseInt(query.parameter("y")) : 2011;
+      return query.parameter("y") != null ? parseInt(query.parameter("y")) : new Date().getYear() + 1900;
     }
 
     function month() {
       var query = new Query();
     
-      return query.parameter("m") != null ? parseInt(query.parameter("m")) : 9;
+      return query.parameter("m") != null ? parseInt(query.parameter("m")) : new Date().getMonth() + 1;
     }
 
     function monthName(num) {
