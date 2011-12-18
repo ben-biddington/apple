@@ -2,6 +2,8 @@ function CalendarView(model) {
     this.render = function() {
 	var daysInMonth = new Date(model.year, model.month, 0).getDate();
 	
+	var theDaysInPreviousMonth = new Date(model.year, model.month - 1, 0).getDate();
+	
 	var theFirstDayOfTheMonth = new Date(model.year, model.month-1, 0);
 
 	if (theFirstDayOfTheMonth.getDay() != 1) {
@@ -10,7 +12,7 @@ function CalendarView(model) {
 
 	var theDayToStartDrawingAt = theFirstDayOfTheMonth.getDay();  
 
-	for (var i = 1; i <= daysInMonth+1; i++) {
+	for (var i = 1; i <= daysInMonth + 1; i++) {
 	    if (i > theDayToStartDrawingAt) {
 		theDate = new Date(model.year, model.month-1, i);
 
@@ -20,9 +22,16 @@ function CalendarView(model) {
 	    
 		var theNumberToDraw = i - theDayToStartDrawingAt;
 
-		$("<span class=\"" + cssClass +"\" id=\"calendar_day_" + theNumberToDraw + "\">" + theNumberToDraw + "</span>").appendTo("#calendar");
+		$(
+		  "<span class=\"" + cssClass +"\" id=\"calendar_day_" + theNumberToDraw + "\">" + 
+                  theNumberToDraw + "</span>"
+                ).appendTo("#calendar");
 	    } else {
-		$("<span class=\"" + "day" +"\" id=\"calendar_day_" + i + "\">" + "&nbsp;" + "</span>").appendTo("#calendar");
+		var theDayFromPreviousMonth = theDaysInPreviousMonth - theDayToStartDrawingAt + i;
+		$(
+                  "<span class=\"day\" id=\"calendar_day_prev_month_" + i + "\">" + 
+                  theDayFromPreviousMonth + "</span>"
+                ).appendTo("#calendar");
 	    }
 	}
 

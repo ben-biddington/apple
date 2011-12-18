@@ -5,12 +5,6 @@
 
   <style type="text/css" media="all">
     @import"css/splitapple.css"; 
-    div#calendar { border:1px solid green; }
-    div#calendar span.day,div#calendar span.dayname { padding:2px; border:1px solid #EEE; width:50px; height:50px; float:left; margin:1px; background-color: white; opacity: 0.5; }
-    div#calendar span.busy { background-color:red; color:white; font-weight:bold;}
-    div#calendar #next_month { width: 25%; display:inline-block; float:right; text-align: right; } 
-    div#calendar #prev_month { width: 25%; display:inline-block; }
-    div#calendar #calendar-title-text { width: 50%; font-weight: bold; text-align: center;}
   </style> 
 </head>
 
@@ -88,13 +82,13 @@
     function year() {
       var query = new Query();
     
-      return query.parameter("y") != null ? parseInt(query.parameter("y")) : 2011;
+      return query.parameter("y") != null ? parseInt(query.parameter("y")) : new Date().getYear() + 1900;
     }
 
     function month() {
       var query = new Query();
     
-      return query.parameter("m") != null ? parseInt(query.parameter("m")) : 9;
+      return query.parameter("m") != null ? parseInt(query.parameter("m")) : new Date().getMonth() + 1;
     }
 
     function monthName(num) {
