@@ -2,7 +2,6 @@ require "rspec"
 require "capybara"
 require "capybara/dsl"
 require "capybara-webkit"
-require "garcon"
 require "acceptance_test"
 
 dir = File.dirname(File.expand_path(__FILE__))
@@ -19,7 +18,7 @@ Capybara.default_driver    = Capybara.javascript_driver
 Capybara.default_selector  = :xpath
 
 Capybara::Driver::Webkit::Browser.class_eval do 
-  def forward_stdout(pipe); end;
+  def forward_stdout(pipe); end
 end
 
 Capybara::Driver::Webkit.class_eval do 
