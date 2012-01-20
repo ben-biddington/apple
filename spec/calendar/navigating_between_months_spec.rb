@@ -12,7 +12,7 @@ describe "navigating between months" do
       click_link "next_month"
     end
 
-    page.current_url.should == "#{base_url}?y=#{2011}&m=#{month + 1}"
+    page.current_url.must == "#{base_url}?y=#{2011}&m=#{month + 1}"
   end
 
   it "next month is january of the following year when month is december" do 
@@ -25,7 +25,7 @@ describe "navigating between months" do
       click_link "next_month"
     end
 
-    page.current_url.should == "#{base_url}?y=#{year + 1}&m=#{1}"
+    page.current_url.must == "#{base_url}?y=#{year + 1}&m=#{1}"
   end
 
   it "you can navigate to the previous month" do
@@ -37,7 +37,7 @@ describe "navigating between months" do
       click_link "prev_month"
     end
     
-    page.current_url.should == "#{base_url}?y=#{2011}&m=#{month - 1}"
+    page.current_url.must == "#{base_url}?y=#{2011}&m=#{month - 1}"
   end
 
   it "previous month is december of the previous year when month is january" do
@@ -50,6 +50,6 @@ describe "navigating between months" do
       click_link "prev_month"
     end
     
-    page.current_url.should == "#{base_url}?y=#{year - 1}&m=#{12}"
+    page.current_url.must == "#{base_url}?y=#{year - 1}&m=#{12}"
   end
 end
