@@ -25,7 +25,7 @@ describe "The calendar on the split apple rock site" do
     all_days = find_all_days
 
     (0...expected_number_of_days_from_nov).each do |i|
-      all_days[i].text.to_i.should(eql(the_number_of_days_in_nov_2011 - 2 + i))
+      all_days[i].text.to_i.must(eql(the_number_of_days_in_nov_2011 - 2 + i))
     end
   end
 
@@ -41,13 +41,13 @@ describe "The calendar on the split apple rock site" do
     all_days = find_all_days
 
     (0...expected_number_of_days_from_dec_2011).each do |i|
-      all_days[i].text.to_i.should(eql(the_number_of_days_in_dec_2011 - 5 + i))
+      all_days[i].text.to_i.must(eql(the_number_of_days_in_dec_2011 - 5 + i))
     end
   end
 
   it "shows the days for the month prior to the requested month even when the requested month is march in a leap year" do
     the_number_of_days_in_feb_2000 = days_in 2000, 2
-    the_number_of_days_in_feb_2000.should eql(29), "Invalid test data -- must be a leap year"
+    the_number_of_days_in_feb_2000.must eql(29), "Invalid test data -- must be a leap year"
 
     expected_number_of_days_from_feb_2000 = 2
 
@@ -58,7 +58,7 @@ describe "The calendar on the split apple rock site" do
     all_days = find_all_days
 
     (0...expected_number_of_days_from_feb_2000).each do |i|
-      all_days[i].text.to_i.should(eql(the_number_of_days_in_feb_2000 - 1 + i))
+      all_days[i].text.to_i.must(eql(the_number_of_days_in_feb_2000 - 1 + i))
     end
   end
  
@@ -71,7 +71,7 @@ describe "The calendar on the split apple rock site" do
 
     the_4th_day_text = the_days[3].text
 
-    the_4th_day_text.to_i.should(eql(1), 
+    the_4th_day_text.to_i.must(eql(1), 
       "Expected the first of the month to be displayed as the 4th item " + 
       "in the calendar, instead it shows #{the_4th_day_text}"
     )
@@ -96,7 +96,7 @@ describe "The calendar on the split apple rock site" do
 
     expected_title = "#{Date::ABBR_MONTHNAMES[today.month]} #{today.year}"
     
-    title.should === expected_title
+    title.must === expected_title
   end
 
   it "shows a different calendar by setting month and/or year query parameters"
@@ -115,7 +115,7 @@ describe "The calendar on the split apple rock site" do
     
     actual_number_of_busy_days = all("//div[@id='calendar']/span[@class='day busy']").size
 
-    actual_number_of_busy_days.should(eql(expected_number_of_busy_days), 
+    actual_number_of_busy_days.must(eql(expected_number_of_busy_days), 
       "Expected #{expected_number_of_busy_days} days to be marked as busy, " + 
       "got #{actual_number_of_busy_days}."
     )
@@ -142,7 +142,7 @@ describe "The calendar on the split apple rock site" do
     
       the_days = find_all_days
 
-      the_days.size.should(eql(expected_number_of_days), 
+      the_days.size.must(eql(expected_number_of_days), 
         "Expected #{expected_number_of_days} days, got #{the_days.size}"
       )
     else
