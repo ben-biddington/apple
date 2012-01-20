@@ -13,6 +13,11 @@ RSpec.configure do |config|
   config.include GarconDsl
 end
 
+Object.class_eval do
+  alias :must :should
+  alias :must_not :should_not
+end
+
 Capybara.javascript_driver = :webkit
 Capybara.default_driver    = Capybara.javascript_driver
 Capybara.default_selector  = :xpath
