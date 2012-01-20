@@ -2,7 +2,6 @@ require "rspec"
 require "capybara"
 require "capybara/dsl"
 require "capybara-webkit"
-require "garcon"
 require "acceptance_test"
 
 dir = File.dirname(File.expand_path(__FILE__))
@@ -14,12 +13,17 @@ RSpec.configure do |config|
   config.include GarconDsl
 end
 
+Object.class_eval do
+  alias :must :should
+  alias :must_not :should_not
+end
+
 Capybara.javascript_driver = :webkit
 Capybara.default_driver    = Capybara.javascript_driver
 Capybara.default_selector  = :xpath
 
 Capybara::Driver::Webkit::Browser.class_eval do 
-  def forward_stdout(pipe); end;
+  def forward_stdout(pipe); end
 end
 
 Capybara::Driver::Webkit.class_eval do 
