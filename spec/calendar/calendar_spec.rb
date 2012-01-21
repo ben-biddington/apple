@@ -97,20 +97,27 @@ describe "The calendar on the split apple rock site" do
 
   it "shows a different calendar by setting month and/or year query parameters"
 
-  it "uses the current year and month if either year or month is invalid" do
+  it "uses the current year if the \"y\" parameter is invalid" do
     today = Date.today
+    expected_title = "Nov #{today.year}"
     
-    visit "#{base_url}?y=xxx&m=1"
+    visit "#{base_url}?y=xxx&m=11"
 
-    pending "Yet to be implemented" do 
-      wait_until_loaded
+    wait_until_loaded
 
-      title = find_by_id("calendar-title-text").text
+    find_by_id("calendar-title-text").text.must === expected_title
+  end
 
-      expected_title = "#{Date::ABBR_MONTHNAMES[today.month]} #{today.year}"
+  it "uses the current month if the \"m\" parameter is invalid" do
+    month = Date.today.month
 
-      title.must === "xxx"
-    end
+    expected_title = "#{Date::ABBR_MONTHNAMES[month]} 1976"
+    
+    visit "#{base_url}?y=1976&m=#{}"
+
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === expected_title
   end
 
   it "shows a message if either if either year or month is invalid"
