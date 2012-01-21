@@ -1,11 +1,7 @@
 require "spec_helper"
 
 describe "The calendar on the split apple rock site" do 
-  let(:base_url){"file:///home/ben/sauce/split_apple_rock/public_html/calendar.html"}
-
-  let :calendar do 
-    CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
-  end
+  include AcceptanceTest
 
   it "shows the correct number of days for the requested month" do
     assert_that_sep_2011_shows_33_days
@@ -102,9 +98,6 @@ describe "The calendar on the split apple rock site" do
   it "shows a different calendar by setting month and/or year query parameters"
 
   it "uses the current year and month if either year or month is invalid" do
-
-    puts "xxx => #{base_url}"
-
     today = Date.today
     
     visit "#{base_url}?y=xxx&m=1"
