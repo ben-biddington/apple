@@ -120,7 +120,6 @@ describe "The calendar on the split apple rock site" do
     find_by_id("calendar-title-text").text.must === expected_title
   end
 
-  it "shows a message if either if either year or month is invalid"
   it "shows busy days for the previous month too"
 
   private 
