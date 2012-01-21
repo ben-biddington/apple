@@ -201,7 +201,7 @@ text-decoration:none;
 
 div#calendar span.day,div#calendar span.dayname { 
     padding:2px; 
-	border: 1px solid #EEE;
+	border:0.5px solid #EEE;
 	width:58px; 
 	height:50px; 
     float:left; 

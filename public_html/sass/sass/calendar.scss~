@@ -1,0 +1,26 @@
+.holder {
+	background-image: none;
+}
+
+#calendar-title {
+	font-family: helvetica;
+	height: 30px;
+}
+
+#calendar-title-text {
+	position: relative;
+	left: 73px;
+}
+
+#calendar-days {
+	font-family: helvetica;
+}
+
+.day {
+	font-family: helvetica;
+	background-color: rgba(white, 0.5);
+
+	&:hover {
+		background-color: #3b3;
+	}
+}
