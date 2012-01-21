@@ -197,37 +197,3 @@ color:#B2DCF4;
 color:#B2DCF4;
 text-decoration:none;
 }
-
-
-div#calendar span.day,div#calendar span.dayname { 
-    padding:2px; 
-	border: 1px solid #EEE;
-	width:58px; 
-	height:50px; 
-    float:left; 
-}
-
-div#calendar span.busy { 
-	background-color:red; 
-	color:white; 
-	font-weight:bold;
-}
-div#calendar #next_month { 
-	width: 25%; 
-	display:inline-block; 
-	float:right; 
-	text-align: right; 
-} 
-div#calendar #prev_month { 
-	width: 25%; 
-	display:inline-block; 
-}
-div#calendar #calendar-title-text { 
-	width: 50%; 
-	font-weight: bold; 
-	text-align: center;
-}
-div#calendar span.dayname { 
-	color:red; 
-	height:1.5em; 
-}

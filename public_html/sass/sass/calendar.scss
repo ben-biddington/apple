@@ -1,4 +1,7 @@
-.holder {
+.wrap {
+	background-image: url('../images/sar.jpg');
+}
+div.holder {
 	background-image: none;
 }
 
@@ -10,6 +13,9 @@
 #calendar-title-text {
 	position: relative;
 	left: 73px;
+	width: 50%; 
+	font-weight: bold; 
+	text-align: center;
 }
 
 #calendar-days {
@@ -19,8 +25,39 @@
 .day {
 	font-family: helvetica;
 	background-color: rgba(white, 0.5);
+	height:50px;
 
 	&:hover {
 		background-color: rgba(#3b3, 0.5);
 	}
+}
+
+.dayname { 
+	color: black; 
+	height: 25px; 
+}
+
+span.day, span.dayname { 
+    padding:2px; 
+	border: 1px solid #EEE;
+	width:58px; 
+    float:left; 
+}
+
+span.busy { 
+	background-color:red; 
+	color:white; 
+	font-weight:bold;
+}
+
+#next_month { 
+	width: 25%; 
+	display:inline-block; 
+	float:right; 
+	text-align: right; 
+} 
+
+#prev_month { 
+	width: 25%; 
+	display:inline-block; 
 }

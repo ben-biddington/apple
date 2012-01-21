@@ -1,31 +1,75 @@
 /* line 1, ../sass/sass/calendar.scss */
-.holder {
+.wrap {
+  background-image: url("../images/sar.jpg");
+}
+
+/* line 4, ../sass/sass/calendar.scss */
+div.holder {
   background-image: none;
 }
 
-/* line 5, ../sass/sass/calendar.scss */
+/* line 8, ../sass/sass/calendar.scss */
 #calendar-title {
   font-family: helvetica;
   height: 30px;
 }
 
-/* line 10, ../sass/sass/calendar.scss */
+/* line 13, ../sass/sass/calendar.scss */
 #calendar-title-text {
   position: relative;
   left: 73px;
+  width: 50%;
+  font-weight: bold;
+  text-align: center;
 }
 
-/* line 15, ../sass/sass/calendar.scss */
+/* line 21, ../sass/sass/calendar.scss */
 #calendar-days {
   font-family: helvetica;
 }
 
-/* line 19, ../sass/sass/calendar.scss */
+/* line 25, ../sass/sass/calendar.scss */
 .day {
   font-family: helvetica;
   background-color: rgba(255, 255, 255, 0.5);
+  height: 50px;
 }
-/* line 23, ../sass/sass/calendar.scss */
+/* line 30, ../sass/sass/calendar.scss */
 .day:hover {
   background-color: rgba(51, 187, 51, 0.5);
+}
+
+/* line 35, ../sass/sass/calendar.scss */
+.dayname {
+  color: black;
+  height: 25px;
+}
+
+/* line 40, ../sass/sass/calendar.scss */
+span.day, span.dayname {
+  padding: 2px;
+  border: 1px solid #EEE;
+  width: 58px;
+  float: left;
+}
+
+/* line 47, ../sass/sass/calendar.scss */
+span.busy {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+
+/* line 53, ../sass/sass/calendar.scss */
+#next_month {
+  width: 25%;
+  display: inline-block;
+  float: right;
+  text-align: right;
+}
+
+/* line 60, ../sass/sass/calendar.scss */
+#prev_month {
+  width: 25%;
+  display: inline-block;
 }
