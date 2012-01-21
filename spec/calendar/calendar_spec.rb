@@ -95,11 +95,22 @@ describe "The calendar on the split apple rock site" do
     title.must === expected_title
   end
 
-  it "shows a different calendar by setting month and/or year query parameters"
+  it "shows a different calendar by setting month and/or year query parameters" do
+    visit "#{base_url}?y=1976&m=9"
+    
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === "Sep 1976"
+
+    visit "#{base_url}?y=1976&m=11"
+    
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === "Nov 1976"
+  end
 
   it "uses the current year if the \"y\" parameter is invalid" do
-    today = Date.today
-    expected_title = "Nov #{today.year}"
+    expected_title = "Nov #{Date.today.year}"
     
     visit "#{base_url}?y=xxx&m=11"
 
