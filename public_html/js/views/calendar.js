@@ -108,5 +108,10 @@ function CalendarView(model) {
       result.setSeconds(0);
 
       return result;	      
-    }			   
+    }
+
+    function monthName(num) {
+      months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      return months[num - 1];                     
+    }  			   
 }
