@@ -1,11 +1,7 @@
 require "spec_helper"
 
 describe "The calendar on the split apple rock site" do 
-  let(:base_url){"file:///home/ben/sauce/split_apple_rock/public_html/calendar.html"}
-
-  let :calendar do 
-    CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
-  end
+  include AcceptanceTest
 
   it "shows the correct number of days for the requested month" do
     assert_that_sep_2011_shows_33_days
@@ -100,7 +96,30 @@ describe "The calendar on the split apple rock site" do
   end
 
   it "shows a different calendar by setting month and/or year query parameters"
-  it "uses the current year and month if either year or month is invalid"
+
+  it "uses the current year if the \"y\" parameter is invalid" do
+    today = Date.today
+    expected_title = "Nov #{today.year}"
+    
+    visit "#{base_url}?y=xxx&m=11"
+
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === expected_title
+  end
+
+  it "uses the current month if the \"m\" parameter is invalid" do
+    month = Date.today.month
+
+    expected_title = "#{Date::ABBR_MONTHNAMES[month]} 1976"
+    
+    visit "#{base_url}?y=1976&m=#{}"
+
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === expected_title
+  end
+
   it "shows a message if either if either year or month is invalid"
   it "shows busy days for the previous month too"
 

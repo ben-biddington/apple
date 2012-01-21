@@ -83,19 +83,23 @@
     function year() {
       var query = new Query();
     
-      return query.parameter("y") != null ? parseInt(query.parameter("y")) : new Date().getYear() + 1900;
+      return query.parameter("y") != null && isNumeric(query.parameter("y")) ? parseInt(query.parameter("y")) : new Date().getYear() + 1900;
     }
 
     function month() {
       var query = new Query();
     
-      return query.parameter("m") != null ? parseInt(query.parameter("m")) : new Date().getMonth() + 1;
+      return query.parameter("m") != null && isNumeric(query.parameter("m"))? parseInt(query.parameter("m")) : new Date().getMonth() + 1;
     }
 
     function monthName(num) {
       months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       return months[num - 1];			   
-    }			   
+    }	
+
+    function isNumeric(what) {
+      return false == isNaN(parseInt(what));
+    }
   </script> 
 </body>
 </html>
