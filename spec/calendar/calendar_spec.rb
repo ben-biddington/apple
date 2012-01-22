@@ -73,12 +73,33 @@ describe "The calendar on the split apple rock site" do
     )
   end
 
-  it "shows busy days for september 2011 (events spanning multiple days)" do
-    assert_busy_days 2011,9   
+  it "shows busy days for april 2011 (events spanning multiple days)" do
+    assert_busy_days 2011, 4   
   end
 
   it "shows busy days for august 2011 (single-day events)" do
-    assert_busy_days 2011,8
+    assert_busy_days 2011, 8
+  end
+
+  it "shows busy days for the previous month too" do 
+    busy_in_sep_2011 = calendar.get_busy_days_for 2011, 9
+    busy_in_aug_2011 = calendar.get_busy_days_for 2011, 8
+
+    busy_in_aug_2011.must(be > 0, "Invalid test data -- no busy days for aug 2011")
+    busy_in_sep_2011.must(be > 0, "Invalid test data -- no busy days for sep 2011")
+
+    expected_number_of_busy_days = busy_in_aug_2011 + busy_in_sep_2011
+
+    visit "#{base_url}?y=#{2011}&m=#{9}"
+    
+    wait_until_loaded
+    
+    actual_number_of_busy_days = all("//div[@id='calendar']/span[@class='day busy']").size
+
+    actual_number_of_busy_days.must(eql(expected_number_of_busy_days), 
+      "Expected #{expected_number_of_busy_days} days to be marked as busy, " + 
+      "got #{actual_number_of_busy_days}."
+    )    
   end
 
   it "shows the current month by default" do
@@ -131,12 +152,10 @@ describe "The calendar on the split apple rock site" do
     find_by_id("calendar-title-text").text.must === expected_title
   end
 
-  it "shows busy days for the previous month too"
-
   private 
 
   def assert_busy_days(year, month)
-    expected_number_of_busy_days = calendar.get_busy_days_for month
+    expected_number_of_busy_days = calendar.get_busy_days_for year, month
 
     visit "#{base_url}?y=#{year}&m=#{month}"
     

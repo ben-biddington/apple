@@ -28,8 +28,15 @@ function CalendarView(model) {
                 ).appendTo("#calendar");
 	    } else {
 		var theDayFromPreviousMonth = theDaysInPreviousMonth - theDayToStartDrawingAt + i;
+
+		theDate = new Date(model.year, model.month - 2, theDayFromPreviousMonth);
+
+		var busy = isBusyOn(theDate);
+
+		var cssClass = busy ? "day busy" : "day";	
+
 		$(
-                  "<span class=\"day\" id=\"calendar_day_prev_month_" + i + "\">" + 
+                  "<span class=\"" + cssClass + "\" id=\"calendar_day_prev_month_" + i + "\">" + 
                   theDayFromPreviousMonth + "</span>"
                 ).appendTo("#calendar");
 	    }
@@ -91,7 +98,6 @@ function CalendarView(model) {
 	  var isOnSingleDay = isOneDayEntry && when.equals(startDate);
            		   
 	  var isInInterval = isOneDayEntry ? when.equals(startDate) : startDate <= when && when < endDate; 		  
-
           if (isInInterval)
             return true;
         }
