@@ -10,6 +10,10 @@ class CalendarEntry
     return 1 if @end.nil?
     return (@end - @start) + 1
   end
+  
+  def inspect
+    ":start => #{@start}, :end => #{@end}, :duration_in_days => #{duration_in_days}"
+  end
 end
 
 class CalendarEntryParser

@@ -14,8 +14,8 @@ function CalendarView(model) {
 
 	for (var i = 1; i <= daysInMonth + 1; i++) {
 	    if (i > theDayToStartDrawingAt) {
-		theDate = new Date(model.year, model.month-1, i);
-
+		theDate = new Date(model.year, model.month-1, i - theDayToStartDrawingAt);
+		
 		var busy = isBusyOn(theDate);
 		
 		var cssClass = busy ? "day busy" : "day";		   
@@ -23,8 +23,8 @@ function CalendarView(model) {
 		var theNumberToDraw = i - theDayToStartDrawingAt;
 
 		$(
-		  "<span class=\"" + cssClass +"\" id=\"calendar_day_" + theNumberToDraw + "\">" + 
-                  theNumberToDraw + "</span>"
+		  "<span class=\"" + cssClass +"\" id=\"" + cellId(theDate) + "\">" + 
+		  theDate.getDate() + "</span>"
                 ).appendTo("#calendar");
 	    } else {
 		var theDayFromPreviousMonth = theDaysInPreviousMonth - theDayToStartDrawingAt + i;
@@ -36,8 +36,8 @@ function CalendarView(model) {
 		var cssClass = busy ? "day busy" : "day";	
 
 		$(
-                  "<span class=\"" + cssClass + "\" id=\"calendar_day_prev_month_" + i + "\">" + 
-                  theDayFromPreviousMonth + "</span>"
+                  "<span class=\"" + cssClass + "\" id=\"" + cellId(theDate) + "\">" + 
+                  theDate.getDate() + "</span>"
                 ).appendTo("#calendar");
 	    }
 	}
@@ -45,6 +45,11 @@ function CalendarView(model) {
 	renderControls(year, month);
 	renderDayHeadings();
     } 
+
+    function cellId(date) {
+	return (date.getYear()+1900) + "_" + (date.getMonth() + 1) + "_" + 
+	    date.getDate();
+    }
 
     function renderDayHeadings() {
 	var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
