@@ -10,19 +10,17 @@ function CalendarView(model) {
 	    daysInMonth += (theFirstDayOfTheMonth.getDay() - 1);
 	}
 
-	var theDayToStartDrawingAt = theFirstDayOfTheMonth.getDay();  
+	var offset = theFirstDayOfTheMonth.getDay();  
 
 	for (var i = 1; i <= daysInMonth + 1; i++) {
-	    if (i > theDayToStartDrawingAt) {
-		theDate = new Date(model.year, model.month-1, i - theDayToStartDrawingAt);
-		
-		renderDay(theDate);
-	    } else {
-		var theDayFromPreviousMonth = theDaysInPreviousMonth - theDayToStartDrawingAt + i;
-
+	    if (i <= offset) {
+		var theDayFromPreviousMonth =  i - offset + theDaysInPreviousMonth;
 		theDate = new Date(model.year, model.month - 2, theDayFromPreviousMonth);
-		renderDay(theDate);
-	    }
+	    } else {
+		theDate = new Date(model.year, model.month-1, i - offset);
+	    } 
+	    
+	    renderDay(theDate);
 	}
 
 	renderControls(year, month);
@@ -30,14 +28,14 @@ function CalendarView(model) {
     } 
 
     function renderDay(theDate) {
-      var busy = isBusyOn(theDate);
+	var busy = isBusyOn(theDate);
 		
-      var cssClass = busy ? "day busy" : "day";		   
+	var cssClass = busy ? "day busy" : "day";		   
       
-      $(
-        "<span class=\"" + cssClass +"\" id=\"" + cellId(theDate) + "\">" + 
-        theDate.getDate() + "</span>"
-       ).appendTo("#calendar");
+	$(
+            "<span class=\"" + cssClass +"\" id=\"" + cellId(theDate) + "\">" + 
+	    theDate.getDate() + "</span>"
+	).appendTo("#calendar");
     }
 
     function cellId(date) {
@@ -83,40 +81,43 @@ function CalendarView(model) {
 
     // see: http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/When.html
     function isBusyOn(when) {
-      when = zeroTime(when);
+	when = zeroTime(when);
       
-      for (var i = 0; i < model.entries.length; i++) {
-        var entry = model.entries[i];
-	var times = entry.getTimes();
+	for (var i = 0; i < model.entries.length; i++) {
+            var entry = model.entries[i];
+	    var times = entry.getTimes();
 
-        if (times.length > 0) {
-          var startDate = zeroTime(times[0].getStartTime().getDate());
-          var endDate = zeroTime(times[0].getEndTime().getDate());
+            if (times.length > 0) {
+		var startDate = zeroTime(times[0].getStartTime().getDate());
+		var endDate = zeroTime(times[0].getEndTime().getDate());
 
-	  var isOneDayEntry = startDate.equals(endDate)		   
-	  var isOnSingleDay = isOneDayEntry && when.equals(startDate);
+		var isOneDayEntry = startDate.equals(endDate)		   
+		var isOnSingleDay = isOneDayEntry && when.equals(startDate);
            		   
-	  var isInInterval = isOneDayEntry ? when.equals(startDate) : startDate <= when && when < endDate; 		  
-          if (isInInterval)
-            return true;
-        }
-      }	
+		var isInInterval = isOneDayEntry ? 
+		    when.equals(startDate) : 
+		    startDate <= when && when < endDate; 		  
+		
+		if (isInInterval)
+		    return true;
+            }
+	}	
 
-      return false;		   
+	return false;		   
     }
 
     function zeroTime(date) {
-      var result = new Date(date);
+	var result = new Date(date);
 
-      result.setHours(0);		   
-      result.setMinutes(0);		   
-      result.setSeconds(0);
+	result.setHours(0);		   
+	result.setMinutes(0);		   
+	result.setSeconds(0);
 
-      return result;	      
+	return result;	      
     }
 
     function monthName(num) {
-      months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      return months[num - 1];                     
+	months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	return months[num - 1];                     
     }  			   
 }
