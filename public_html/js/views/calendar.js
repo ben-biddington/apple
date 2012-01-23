@@ -16,35 +16,29 @@ function CalendarView(model) {
 	    if (i > theDayToStartDrawingAt) {
 		theDate = new Date(model.year, model.month-1, i - theDayToStartDrawingAt);
 		
-		var busy = isBusyOn(theDate);
-		
-		var cssClass = busy ? "day busy" : "day";		   
-	    
-		var theNumberToDraw = i - theDayToStartDrawingAt;
-
-		$(
-		  "<span class=\"" + cssClass +"\" id=\"" + cellId(theDate) + "\">" + 
-		  theDate.getDate() + "</span>"
-                ).appendTo("#calendar");
+		renderDay(theDate);
 	    } else {
 		var theDayFromPreviousMonth = theDaysInPreviousMonth - theDayToStartDrawingAt + i;
 
 		theDate = new Date(model.year, model.month - 2, theDayFromPreviousMonth);
-
-		var busy = isBusyOn(theDate);
-
-		var cssClass = busy ? "day busy" : "day";	
-
-		$(
-                  "<span class=\"" + cssClass + "\" id=\"" + cellId(theDate) + "\">" + 
-                  theDate.getDate() + "</span>"
-                ).appendTo("#calendar");
+		renderDay(theDate);
 	    }
 	}
 
 	renderControls(year, month);
 	renderDayHeadings();
     } 
+
+    function renderDay(theDate) {
+      var busy = isBusyOn(theDate);
+		
+      var cssClass = busy ? "day busy" : "day";		   
+      
+      $(
+        "<span class=\"" + cssClass +"\" id=\"" + cellId(theDate) + "\">" + 
+        theDate.getDate() + "</span>"
+       ).appendTo("#calendar");
+    }
 
     function cellId(date) {
 	return (date.getYear()+1900) + "_" + (date.getMonth() + 1) + "_" + 
