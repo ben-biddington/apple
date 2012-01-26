@@ -8,20 +8,20 @@ display : none;
 
 /***** TEXT STYLES**********************************************/
 p, td, li, ul, ol, h1, h2, h3, h4, h5, h6 {
-font-family:Verdana, Arial, Helvetica, sans-serif;
-text-decoration : none;
-font-size:11px;
-color:#4F8AAC;
-padding-top:0;
-margin:0;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-decoration : none;
+	font-size:11px;
+	color:#4F8AAC;
+	padding-top:0;
+	margin:0;
 }
 
 /*----- CSS Document */
 body{
-margin:none;
-border:0;
-margin:0;
-padding:0;
+	margin:none;
+	border:0;
+	margin:0;
+	padding:0;
 }
 /*----- Tag (standard) stlye*/
 
@@ -34,40 +34,40 @@ padding-left:20px;
 }
 
 h2{
-font-family:arial;
-font-size:14px;
-font-weight:bold;
-padding:0;
-margin:0;
+	font-family:arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:0;
+	margin:0;
 }
+
 h3{
-font-family:arial;
-font-size:12px;
-font-weight:bold;
-padding-top:10px;
-margin:0;
+	font-family:arial;
+	font-size:12px;
+	font-weight:bold;
+	padding-top:10px;
+	margin:0;
 }
 
 
 /*----- Div stlye*/
 .wrap{
-margin-top:10%;
+	margin-top:10%;
 }
 
 div.holder{
-width:780px;
-height:341px;
-background-image:url(../images/bg_5.jpg);
+	width:780px;
+	height:341px;
+	background-image:url(../images/bg_5.jpg);
 }
 
 .gns{
-
-background-color:#99CCFF;
-background-image:url(../images/gnsBg.gif); 
-background-repeat:no-repeat;
-padding-left:285px;
-padding-top:20px;
-padding-bottom:4px;
+	background-color:#99CCFF;
+	background-image:url(../images/gnsBg.gif); 
+	background-repeat:no-repeat;
+	padding-left:285px;
+	padding-top:20px;
+	padding-bottom:4px;
 }
 
 .gns li {
