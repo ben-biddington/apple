@@ -73,12 +73,41 @@ describe "The calendar on the split apple rock site" do
     )
   end
 
-  it "shows busy days for september 2011 (events spanning multiple days)" do
-    assert_busy_days 2011,9   
+  it "shows busy days for april 2011 (events spanning multiple days)" do
+    assert_busy_days 2011, 4
   end
 
   it "shows busy days for august 2011 (single-day events)" do
-    assert_busy_days 2011,8
+    assert_busy_days 2011, 8
+  end
+
+  it "shows busy days for the previous month too" do 
+    busy_in_sep_2011 = calendar.get_busy_days_for(2011, 9)
+    busy_in_aug_2011 = calendar.get_busy_days_for(2011, 8)
+
+    busy_in_aug_2011.size.must(be > 0, "Invalid test data -- no busy days for aug 2011")
+    busy_in_sep_2011.size.must(be > 0, "Invalid test data -- no busy days for sep 2011")
+
+    expected_number_of_busy_days = (busy_in_aug_2011 + busy_in_sep_2011).inject(0) do |sum, entry|
+      sum + entry.duration_in_days
+    end.to_i
+
+    visit "#{base_url}?y=#{2011}&m=#{9}"
+    
+    wait_until_loaded
+    
+    actual_number_of_busy_days = all("//div[@id='calendar']/span[@class='day busy']").size
+
+    actual_number_of_busy_days.must(eql(expected_number_of_busy_days), 
+      "Expected #{expected_number_of_busy_days} days to be marked as busy, " + 
+      "got #{actual_number_of_busy_days}."
+    )
+
+    (busy_in_aug_2011 + busy_in_sep_2011).each do |day|
+      (0...day.duration_in_days).each do |i|
+        assert_marked_busy(day.start + i)
+      end
+    end
   end
 
   it "shows the current month by default" do
@@ -95,11 +124,22 @@ describe "The calendar on the split apple rock site" do
     title.must === expected_title
   end
 
-  it "shows a different calendar by setting month and/or year query parameters"
+  it "shows a different calendar by setting month and/or year query parameters" do
+    visit "#{base_url}?y=1976&m=9"
+    
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === "Sep 1976"
+
+    visit "#{base_url}?y=1976&m=11"
+    
+    wait_until_loaded
+
+    find_by_id("calendar-title-text").text.must === "Nov 1976"
+  end
 
   it "uses the current year if the \"y\" parameter is invalid" do
-    today = Date.today
-    expected_title = "Nov #{today.year}"
+    expected_title = "Nov #{Date.today.year}"
     
     visit "#{base_url}?y=xxx&m=11"
 
@@ -120,12 +160,11 @@ describe "The calendar on the split apple rock site" do
     find_by_id("calendar-title-text").text.must === expected_title
   end
 
-  it "shows busy days for the previous month too"
-
   private 
 
   def assert_busy_days(year, month)
-    expected_number_of_busy_days = calendar.get_busy_days_for month
+    expected_busy_days = calendar.get_busy_days_for year, month
+    expected_number_of_busy_days = expected_busy_days.size
 
     visit "#{base_url}?y=#{year}&m=#{month}"
     
@@ -137,6 +176,22 @@ describe "The calendar on the split apple rock site" do
       "Expected #{expected_number_of_busy_days} days to be marked as busy, " + 
       "got #{actual_number_of_busy_days}."
     )
+
+    expected_busy_days.each do |day|
+      (0...day.duration_in_days).each do |i|
+        assert_marked_busy(day.start + i)
+      end
+    end
+  end
+  
+  def assert_marked_busy(day)
+    element_id = "#{day.year}_#{day.month}_#{day.day}"
+    the_element = find_by_id element_id
+    the_element.must_not(be_nil, "Did not find the element with id #{element_id}")
+    the_element["class"].must(match(/busy/), 
+      "Expected the element's css class <#{the_element["class"]}> to include \"busy\""
+    )
+    the_element.text.must(eql(day.day.to_s), "Expected the element's text to be <#{day.day}>, but it was <#{the_element.text}>")
   end
 
   def days_in(year, month_index) 

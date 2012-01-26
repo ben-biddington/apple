@@ -10,12 +10,16 @@ class CalendarEntry
     return 1 if @end.nil?
     return (@end - @start) + 1
   end
+  
+  def inspect
+    ":start => #{@start}, :end => #{@end}, :duration_in_days => #{duration_in_days}"
+  end
 end
 
 class CalendarEntryParser
   class << self 
     def parse(text)
-      time_pattern = "[0-9]{2}:[0-9]{2}"
+      time_pattern = "[cal0-9]{2}:[0-9]{2}"
       date_pattern = "([A-Za-z]{3} [0-9]{1,2} [A-Za-z]{3} [0-9]{4})"
       pattern = /When: #{date_pattern}(.+to #{date_pattern})?/
 
