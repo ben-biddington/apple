@@ -1,0 +1,1 @@
+window.configuration = { calendar: "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com" };
