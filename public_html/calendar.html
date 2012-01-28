@@ -49,11 +49,12 @@
   <script type="text/javascript" src="js/extensions.js"></script>
   <script type="text/javascript" src="js/query.js"></script>
   <script type="text/javascript" src="js/views/calendar.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
   <script language="javascript">
     google.load("gdata", "1");
     google.setOnLoadCallback(load);
  
-    var calendarUrl = "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com";
+    var calendarUrl = window.configuration.calendar;
 
     var feedUrl = "https://www.google.com/calendar/feeds/" + calendarUrl + "/public/full";
 
