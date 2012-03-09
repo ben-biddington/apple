@@ -39,6 +39,7 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
     rubyzip (0.9.4)
+    sass (3.1.15)
     selenium-webdriver (2.5.0)
       childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
@@ -59,3 +60,4 @@ DEPENDENCIES
   nokogiri
   rake
   rspec
+  sass

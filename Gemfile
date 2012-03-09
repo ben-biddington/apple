@@ -8,4 +8,5 @@ group :test do
   gem "launchy"
   gem "nokogiri"
   gem "jasmine"
+  gem "sass"
 end
