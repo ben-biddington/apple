@@ -1,87 +1,57 @@
-/* line 1, ../sass/sass/calendar.scss */
 * {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
-/* line 6, ../sass/sass/calendar.scss */
 body {
-  font-size: 13px;
-}
+  font-size: 13px; }
 
-/* line 10, ../sass/sass/calendar.scss */
-.wrap {
-  background-image: url("../images/sar.jpg");
-  height: 530px;
-}
-
-/* line 15, ../sass/sass/calendar.scss */
 div.holder {
-  background-image: none;
-}
+  height: 365px;
+  background-position: bottom right;
+  background-repeat: no-repeat; }
 
-/* line 19, ../sass/sass/calendar.scss */
 #calendar-title {
   font-family: helvetica;
   height: 30px;
-  width: 447px;
-}
+  width: 447px; }
 
-/* line 25, ../sass/sass/calendar.scss */
 #calendar-title-text {
   position: relative;
   left: 73px;
   width: 50%;
-  text-align: center;
-}
+  text-align: center; }
 
-/* line 32, ../sass/sass/calendar.scss */
 #calendar-days {
-  font-family: helvetica;
-}
+  font-family: helvetica; }
 
-/* line 36, ../sass/sass/calendar.scss */
 .day {
   font-family: helvetica;
   background-color: rgba(255, 255, 255, 0.5);
-  height: 50px;
-}
-/* line 41, ../sass/sass/calendar.scss */
-.day:hover {
-  background-color: rgba(107, 175, 207, 0.2);
-}
+  height: 45px; }
+  .day:hover {
+    background-color: rgba(107, 175, 207, 0.2); }
 
-/* line 46, ../sass/sass/calendar.scss */
 .dayname {
   color: black;
-  height: 25px;
-}
+  height: 25px; }
 
-/* line 51, ../sass/sass/calendar.scss */
 span.day, span.dayname {
   padding: 2px;
   border: 1px solid #EEE;
   width: 58px;
-  float: left;
-}
+  float: left; }
 
-/* line 58, ../sass/sass/calendar.scss */
 span.busy {
   background-color: red;
   color: white;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
-/* line 64, ../sass/sass/calendar.scss */
 #next_month {
   width: 25%;
   display: inline-block;
   float: right;
-  text-align: right;
-}
+  text-align: right; }
 
-/* line 71, ../sass/sass/calendar.scss */
 #prev_month {
   width: 25%;
-  display: inline-block;
-}
+  display: inline-block; }

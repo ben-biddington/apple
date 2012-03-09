@@ -7,13 +7,10 @@ body {
 	font-size:	13px;
 }
 
-.wrap {
-	background-image: url('../images/sar.jpg');
-	height: 530px;
-}
-
-div.holder {
-	background-image: none;
+div.holder { 
+	   height: 365px;
+	   background-position: bottom right; 
+	   background-repeat: no-repeat; 
 }
 
 #calendar-title {
@@ -36,7 +33,7 @@ div.holder {
 .day {
 	font-family: helvetica;
 	background-color: rgba(white, 0.5);
-	height:50px;
+	height:45px;
 
 	&:hover {
 		background-color: rgba(107, 175, 207, 0.2);
