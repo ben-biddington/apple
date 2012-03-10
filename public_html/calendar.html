@@ -33,7 +33,7 @@
 
 	<div class="text">
 	  <div id="calendar">
-	    <div id="calendar-title"></div>
+	    <div id="calendar-title">Loading...</div>
 	    <div id="calendar-days"></div>
 	  </div>
 	  <div id="events"></div>
@@ -69,10 +69,16 @@
         function(feedRoot) {
           var entries = feedRoot.feed.getEntries();
 
+          clearCalendar();
+
           new CalendarView({ entries : entries, year : year(), month : month()}).render();
         }, 
         function(e) {}
       );
+    }
+
+    function clearCalendar() {
+        $("#calendar-title").empty();
     }
 
     function timezone() {
