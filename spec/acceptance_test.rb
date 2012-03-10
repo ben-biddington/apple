@@ -6,6 +6,16 @@ module AcceptanceTest
       let :calendar do 
         CalendarFeed.new "vddp2rq2f0j1asv103n6jps2og@group.calendar.google.com"    
       end
+
+      before :all do
+        configure_google_calendar_for_test
+      end
+
+      private 
+      
+      def configure_google_calendar_for_test
+        %x{ln -f public_html/js/config.test.js public_html/js/config.js}
+      end 
     end
   end
 
