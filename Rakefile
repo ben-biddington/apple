@@ -26,3 +26,16 @@ task :config, :name do |t,args|
   puts "copied <#{from}> to <#{to}>"
 end
 
+desc "print the list of changed files"
+task :changes do
+  root_revision = File.read("VERSION").strip
+  puts Changes.all root_revision, "public_html/"
+end
+
+class Changes
+  class << self
+    def all(since,path)
+      `git diff --name-status #{since}..HEAD -- #{path}`
+    end
+  end
+end
