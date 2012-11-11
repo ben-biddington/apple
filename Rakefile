@@ -28,34 +28,45 @@ end
 
 desc "print the list of changed files"
 task :changes do
-  root_revision = File.read("VERSION").strip
-  puts Git.changes root_revision, "public_html/"
+  puts Changes.all Version.to_s, "public_html/"
+end
+
+class Version
+  def self.to_s
+    File.read("VERSION").strip
+  end
+end
+
+class Changes
+  class << self
+    def all(since,path)
+      Git.new(since, path).changes
+    end
+  end
 end
 
 class Git
-  class << self
-    def changes(since,path)
-      Changelist.new(modified(since, path), deleted(since, path))
-    end
+  def initialize(since,path)
+    @since,@path = since,path
+  end
+  
+  def changes
+    Changelist.new(modified, deleted)
+  end
 
-    private
+  private
 
-    def modified(since,path)
-      to_files `git diff --name-status #{since}..HEAD -- #{path} | grep '^[A]'`
-    end
+  def modified
+    to_files `git diff --name-status #{@since}..HEAD -- #{@path} | grep '^[A]'`
+  end
 
-    def deleted(since,path)
-      to_files `git diff --name-status #{since}..HEAD -- #{path} | grep '^[D]'`
-    end
+  def deleted
+    to_files `git diff --name-status #{@since}..HEAD -- #{@path} | grep '^[D]'`
+  end
 
-    def all(since,path)
-      `git diff --name-status #{since}..HEAD -- #{path}`
-    end
-
-    def to_files(lines)
-      lines.split("\n").map do |line|
-        /^[A-Z]{1}\s+(.+)$/.match(line)[1]  
-      end
+  def to_files(lines)
+    lines.split("\n").map do |line|
+      /^[A-Z]{1}\s+(.+)$/.match(line)[1]  
     end
   end
 end
