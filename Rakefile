@@ -26,9 +26,24 @@ task :config, :name do |t,args|
   puts "copied <#{from}> to <#{to}>"
 end
 
-require File.join File.dirname(__FILE__), "build/git"
+Dir.glob("#{File.dirname(__FILE__)}/build/**/*.rb").each{|f| require f}
 
 desc "print the list of changed files"
 task :changes do
-  puts Changes.all Version.to_s, "public_html/"
+  release = Release.new(
+    Git.new(Version.to_s,"public_html/"),
+    DryRunNetwork.new                        
+  )
+
+  release.deploy
+end
+
+class DryRunNetwork
+  def send(modified)
+    puts "MODIFIED (#{modified.size}):\n#{modified}"
+  end
+
+  def delete(deleted)
+    puts "DELETED (#{deleted.size}):\n#{deleted}"
+  end
 end
