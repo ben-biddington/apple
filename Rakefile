@@ -35,7 +35,40 @@ end
 class Git
   class << self
     def changes(since,path)
+      Changelist.new(modified(since, path), deleted(since, path))
+    end
+
+    private
+
+    def modified(since,path)
+      to_files `git diff --name-status #{since}..HEAD -- #{path} | grep '^[A]'`
+    end
+
+    def deleted(since,path)
+      to_files `git diff --name-status #{since}..HEAD -- #{path} | grep '^[D]'`
+    end
+
+    def all(since,path)
       `git diff --name-status #{since}..HEAD -- #{path}`
     end
+
+    def to_files(lines)
+      lines.split("\n").map do |line|
+        /^[A-Z]{1}\s+(.+)$/.match(line)[1]  
+      end
+    end
+  end
+end
+
+class Changelist
+  attr_reader :modified,:deleted
+
+  def initialize(modified=[], deleted=[])
+    @modified = modified
+    @deleted = deleted
+  end
+
+  def to_s
+    self.modified.inspect + self.deleted.inspect
   end
 end
