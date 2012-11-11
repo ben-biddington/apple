@@ -29,12 +29,12 @@ end
 desc "print the list of changed files"
 task :changes do
   root_revision = File.read("VERSION").strip
-  puts Changes.all root_revision, "public_html/"
+  puts Git.changes root_revision, "public_html/"
 end
 
-class Changes
+class Git
   class << self
-    def all(since,path)
+    def changes(since,path)
       `git diff --name-status #{since}..HEAD -- #{path}`
     end
   end
