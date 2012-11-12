@@ -8,6 +8,6 @@ class RemoteVersion
     
     `echo "#{version}" > VERSION`
 
-    @network.send ["VERSION"]
+    @network.send(["VERSION"])
   end
 end

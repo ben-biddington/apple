@@ -24,7 +24,7 @@ class Git
   private
 
   def modified
-    to_files `git diff --name-status #{@since}..HEAD -- #{@path} | grep '^[A]'`
+    to_files `git diff --name-status #{@since}..HEAD -- #{@path} | grep '^[A|M]'`
   end
 
   def deleted

@@ -6,8 +6,8 @@ class Release
   
   def deploy
     changes = @version_control.changes
-    
-    @network.send changes.modified
+
+    @network.send(changes.modified)
     @network.delete changes.deleted
   end
 end
