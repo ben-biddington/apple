@@ -46,6 +46,8 @@ task :deploy do
   )
 
   release.deploy
+
+  # TODO: Need to rename the js config file
 end
 
 desc "Sets remote version to the current head"
