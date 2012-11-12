@@ -7,6 +7,7 @@ require "acceptance_test"
 dir = File.dirname(File.expand_path(__FILE__))
 
 Dir["#{dir}/lib/**/*.rb"].each {|f| require f}
+Dir.glob("#{dir}/../build/**/*.rb").each {|f| require f}
 
 RSpec.configure do |config|
   config.include Capybara::DSL

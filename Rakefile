@@ -31,9 +31,22 @@ Dir.glob("#{File.dirname(__FILE__)}/build/**/*.rb").each{|f| require f}
 desc "print the list of changed files"
 task :changes do
   release = Release.new(
-    Git.new(Version.to_s,"public_html/"),
+    Git.new(Version.to_s, "public_html/"),
     DryRunNetwork.new                        
   )
 
   release.deploy
+end
+
+desc "Set remote version"
+task :set_remote_version do
+  config_file = File.join(File.dirname(__FILE__), ".ftp")
+  fail "This test requires a config file containing the ftp details to be present at <#{config_file}>" unless File.exists?(config_file)
+  credential = YamlFtpCredential.new config_file
+
+  ftp = FtpNetwork.new(credential, "/public_html")
+
+  RemoteVersion.new(ftp).set
+
+  puts ftp.list
 end
