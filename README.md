@@ -1,10 +1,12 @@
 # Setting up your source calendar
 
-Calendar must **not** be set to "Share only my free/busy information (Hide details)". (see _Calendar Details_ > _Sharing Settings_.) 
+## Calendar must **not** be set to "Share only my free/busy information (Hide details)"
+
+See:  _Calendar Details_ > _Sharing Settings_.
+
+We **must** fetch the `public/full` version of the calendar, which is not available when the "Share only my free/busy information (Hide details)" box is checked. We need this version because it has extra nodes. 
 
 We need to full version in order to get the event times, and [getTimes](http://code.google.com/apis/gdata/jsdoc/2.2/google/gdata/EventEntry.html#getTimes) returns nothing from a _basic_ calendar. 
-
-We **must* fetch the `public/full` version of the calendar, which is not available when the "Share only my free/busy information (Hide details)" box is checked. We need this version because it has extra nodes. 
 
 ## Full
 
@@ -56,6 +58,14 @@ We **must* fetch the `public/full` version of the calendar, which is not availab
 
 An event must be __public__, and you must set it to __busy__ for it to show.
 
+# Deployment
+
+Run `rake deploy` to deploy the differences between the current and and the revision specified in `VERSION`.
+
+Run `rake changes` to print the list of changes.
+
+Note: the deployment system only includes files in the `public_html/` directory.
+
 # Tips
 
 To find out what methods a javscript object has, for example all its getters: 
@@ -64,23 +74,3 @@ To find out what methods a javscript object has, for example all its getters:
     for (var prop in anyObject) {
       if (prop.indexOf("get") != -1) console.log(prop);
     }
-
-# Deployment
-## Downloading
-
-It is easiest to do this with ftp directly, the ruby interface does not support mget.
-
-1. start ftp
-1. `prompt` turns off interactive mode
-1. make sure the local dirs are all present (don't know how the `! mkdir directory` option works)
-1. run something like `$ mget public_html/**/*`
-1. verify all files have been copied
-
-## Uploading
-
-1. send local_file remote_file
-
-## TODO
-
-Imagine automatic deploy changes only. Perhaps keep the current git version on the remote server. 
-Then download it, compare with head and generate a changeset.
