@@ -65,7 +65,7 @@ Run `rake deploy` to deploy the differences between the current and and the revi
 Run `rake changes` to print the list of changes.
 
 Note: the deployment system only includes files in the `public_html/` directory.
-
+Note: deployment is via FTP and requires you to provide your credentials in a yaml file called `.ftp` in the root directory. Use `.ftp.example` as a template.
 # Tips
 
 To find out what methods a javscript object has, for example all its getters: 
