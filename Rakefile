@@ -30,20 +30,28 @@ Dir.glob("#{File.dirname(__FILE__)}/build/**/*.rb").each{|f| require f}
 
 desc "Print the list of changed files"
 task :changes do
+  dir = "public_html/"
+
   release = Release.new(
-    Git.new(Version.to_s, "public_html/"),
+    Git.new(Version.to_s, dir),
     DryRunNetwork.new                        
   )
 
+  puts "Reading changes from: #{dir}"
+  
   release.deploy
 end
 
 desc "Deploys the changes between the remote version and the current head"
 task :deploy do
+  dir = "public_html/"
+  
   release = Release.new(
-    Git.new(Version.to_s, "public_html/"),
+    Git.new(Version.to_s, dir),
     FtpNetworkFactory.create
   )
+
+  puts "Reading changes from: #{dir}"
 
   release.deploy
 
