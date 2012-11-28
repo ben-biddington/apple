@@ -10,18 +10,21 @@ class Rates
   end
 
   def queen
-    the_paragraph = all("//div[@class='text']/p")[0].text
-    /Queen:(.+)/.match(the_paragraph)[1].strip
+    /Queen:(.+)/.match(first_price_para)[1].strip
   end
 
   def twin
-    the_paragraph = all("//div[@class='text']/p")[0].text
-    /Twin:(.+)/.match(the_paragraph)[1].strip
+    /Twin:(.+)/.match(first_price_para)[1].strip
   end
 
   def dinner
-    the_paragraph = all("//div[@class='text']/p")[0].text
-    /additional (\$[\d]+) per person/.match(the_paragraph)[1].strip
+    /additional (\$[\d]+) per person/.match(first_price_para)[1].strip
+  end
+
+  private
+
+  def first_price_para
+    all("//div[@class='text']/p")[0].text
   end
 end
 
