@@ -59,53 +59,37 @@ div.holder{
 	margin: auto;
 	width:780px; 
 	height:341px;
-	background-image:url(../images/bg_5.jpg);
+	//background-image:url(../images/bg_5.jpg);
 }
 
-.gns{
-	background-color:#99CCFF;
-	background-image:url(../images/gnsBg.gif); 
-	background-repeat:no-repeat;
-	padding-left:285px;
-	padding-top:20px;
-	padding-bottom:4px;
-}
-
-.gns li {
-	display: inline;
+.menu li {
+	display: inline-block;
 	list-style:none;
-	padding-top:20px;
+	width: 16.3%;
 	}
 
-.gns li a{
-	margin:0;
+.menu li a{
 	width:120px;  
 	height:28px;
-	padding-left: 6px;
-	padding-right:10px;
-	padding-bottom: 4px;
-	padding-top:20px;
 	font-size:12px;
 	text-decoration:none;
 	color:#4F8AAC;
 	vertical-align:bottom;
 }
 
-
-
-.gns li a:hover{
+.menu li a:hover{
 	color:#4F8AAC;
 	background-image:url(../images/gnsGrad.gif);
 	background-repeat:repeat-y;
 }
 
-.gns li a:active{
+.menu li a:active{
 	color:#4F8AAC;
 	background-image:url(../images/gnsGrad.gif);
 	background-repeat:repeat-y;
 }
 
-/* --- end gns navigation ---*/
+/* --- end menu navigation ---*/
 .italics{
 font-style:italic;
 
