@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Bootstrap 101 Template</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>Sticky Footer Template for Bootstrap</title>
+
+    <link href="dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="sticky-footer.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -13,11 +21,20 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div id="wrap">
+      <div class="container">
+        <div class="page-header">
+          <h1>Sticky footer</h1>
+        </div>
+        <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
+        <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+      </div>
+    </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">Example courtesy</p>
+      </div>
+    </div>
   </body>
 </html>
