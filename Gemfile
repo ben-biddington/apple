@@ -1,4 +1,6 @@
-source :rubygems
+source "https://rubygems.org"
+
+gem "audible"
 
 group :test do
   gem "rake"

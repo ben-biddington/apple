@@ -1,3 +1,5 @@
 *.scssc
 .ftp
 *.swp
+pictures/
+*~
