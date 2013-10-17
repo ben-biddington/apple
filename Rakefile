@@ -1,6 +1,7 @@
 require "rspec/core/rake_task"
 
 require File.join ".", "rake", "pictures.rake.rb"
+require File.join ".", "rake", "site.rake.rb"
 
 desc "run all tests"
 RSpec::Core::RakeTask.new
