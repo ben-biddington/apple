@@ -1,8 +1,14 @@
 desc "Generate the pages"
 task :generate do
   page_template = File.join ".", "templating", "templates", "page.html.erb"
-  
-  puts Press.new.render page_template
+  output_dir = File.join ".", "next"
+
+  home = File.join output_dir, "home.html"
+
+  File.open home, "w+" do |f|
+    f.puts Press.new.render page_template
+    puts "Wrote <#{home}>"
+  end
 end
 
 class Press
