@@ -3,11 +3,15 @@ task :generate do
   page_template = File.join ".", "templating", "templates", "page.html.erb"
   output_dir = File.join ".", "next"
 
-  home = File.join output_dir, "home.html"
-
-  Page.new(:template => page_template, :out => home).tap do|it|
-    it.on(:rendered){|e,args| puts "Wrote <#{args.first}>"}
-  end.render
+  pages = [
+           Page.new(:template => page_template, :out => File.join(output_dir, "home.html")),
+           Page.new(:template => page_template, :out => File.join(output_dir, "about.html"))
+          ]
+  
+  pages.each do |page| 
+    page.on(:rendered){|e,args| puts "Wrote <#{args.first}>"}
+    page.render
+  end
 end
 
 class Page
