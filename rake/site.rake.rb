@@ -24,7 +24,12 @@ class Page
 
   def render
     File.open @out, "w+" do |f|
-      f.puts Press.render @template
+      require "liquid"
+
+      template = Liquid::Template.parse(File.read(@template))
+      
+      f.puts template.render "title" => "xxx", "template_dir" => File.dirname(@template)
+
       notify :rendered, @out
     end
   end
