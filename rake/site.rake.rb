@@ -5,24 +5,41 @@ task :generate do
 
   home = File.join output_dir, "home.html"
 
-  File.open home, "w+" do |f|
-    f.puts Press.new.render page_template
-    puts "Wrote <#{home}>"
+  Page.new(:template => page_template, :out => home).tap do|it|
+    it.on(:rendered){|e,args| puts "Wrote <#{args.first}>"}
+  end.render
+end
+
+class Page
+  require "audible"; include Audible
+
+  def initialize(opts = {})
+    @template = opts[:template]
+    @out = opts[:out]
+  end
+
+  def render
+    File.open @out, "w+" do |f|
+      f.puts Press.render @template
+      notify :rendered, @out
+    end
   end
 end
 
 class Press
-  def render(path) 
-    require "erb"
+  class << self
+    def render(path) 
+      require "erb"
     
-    @template_dir = File.dirname path
+      @template_dir = File.dirname path
 
-    renderer = ERB.new(File.read(path))
+      renderer = ERB.new(File.read(path))
     
-    renderer.result(binding)
-  end
-
-  def template_dir
-    @template_dir
+      renderer.result(binding)
+    end
+    
+    def template_dir
+      @template_dir
+    end
   end
 end
