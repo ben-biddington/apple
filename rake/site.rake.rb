@@ -26,29 +26,11 @@ class Page
     File.open @out, "w+" do |f|
       require "liquid"
 
-      template = Liquid::Template.parse(File.read(@template))
+      template = Liquid::Template.parse(File.read(@template), :error_mode => :strict)
       
       f.puts template.render "title" => "xxx", "template_dir" => File.dirname(@template)
 
       notify :rendered, @out
-    end
-  end
-end
-
-class Press
-  class << self
-    def render(path) 
-      require "erb"
-    
-      @template_dir = File.dirname path
-
-      renderer = ERB.new(File.read(path))
-    
-      renderer.result(binding)
-    end
-    
-    def template_dir
-      @template_dir
     end
   end
 end

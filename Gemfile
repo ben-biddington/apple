@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "audible"
-gem "liquid"
+gem "liquid", :git => "https://github.com/Shopify/liquid.git"
 
 group :test do
   gem "rake"

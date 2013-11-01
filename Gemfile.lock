@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/Shopify/liquid.git
+  revision: 445f19d454deb4ae4c8712d301fd4683998c7ad2
+  specs:
+    liquid (3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -25,7 +31,6 @@ GEM
       spruz (~> 0.2.8)
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    liquid (2.5.3)
     mime-types (1.16)
     nokogiri (1.5.0)
     rack (1.3.2)
@@ -60,7 +65,7 @@ DEPENDENCIES
   capybara-webkit
   jasmine
   launchy
-  liquid
+  liquid!
   nokogiri
   rake
   rspec
