@@ -26,6 +26,12 @@ class Page
     File.open @out, "w+" do |f|
       require "liquid"
 
+      template_path = File.join ".", "templating", "templates"
+
+      fail unless File.exists? template_path
+
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new(template_path) 
+
       template = Liquid::Template.parse(File.read(@template), :error_mode => :strict)
       
       f.puts template.render "title" => "xxx", "template_dir" => File.dirname(@template)
