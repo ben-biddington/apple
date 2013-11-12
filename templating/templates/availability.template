@@ -7,11 +7,10 @@
       <div class="container">
 	<div>
 	  {%include "menu"%}
-	  <h1>{{ title }}</h1>
 	</div>
 	<div class="text">
 	  <div id="calendar">
-	    <div id="calendar-title">Loading...</div>
+	    <div id="calendar-title">Please wait while we load the calendar...</div>
 	    <div id="calendar-days"></div>
 	  </div>
 	  <div id="events"></div>

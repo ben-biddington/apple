@@ -6,7 +6,6 @@
       <div class="container">
 	<div>
 	  {%include "menu"%}
-	  <h1>{{ title }}</h1>
 	</div>
 	<p class="lead">Kia Ora</p>
 	<p>
