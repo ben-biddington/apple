@@ -1,16 +1,36 @@
 desc "Generate the pages"
 task :generate do
-  page_template = File.join ".", "templating", "templates", "page.html.erb"
-  output_dir = File.join ".", "next"
+  Site.on(:page){|e,args| puts "Generated <#{args.first}>"}
+  Site.generate
+end
 
-  pages = [
-           Page.new(:template => page_template, :out => File.join(output_dir, "home.html")),
-           Page.new(:template => page_template, :out => File.join(output_dir, "about.html"))
-          ]
+class Site
+  require "audible"; extend Audible
   
-  pages.each do |page| 
-    page.on(:rendered){|e,args| puts "Wrote <#{args.first}>"}
-    page.render
+  class << self
+    def generate
+      pages.each do |page| 
+        page.on(:rendered){|e,args| notify(:page, args.first)}
+        page.render
+      end      
+    end
+
+    private
+
+    def pages
+      [
+       Page.new(:template => page_template, :out => File.join(output_dir, "home.html")),
+       Page.new(:template => page_template, :out => File.join(output_dir, "about.html"))
+      ]
+    end
+
+    def page_template
+      File.join ".", "templating", "templates", "page.html.erb"
+    end
+
+    def output_dir
+      File.join ".", "next"
+    end
   end
 end
 
