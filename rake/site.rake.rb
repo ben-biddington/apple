@@ -68,7 +68,7 @@ class Page
 
       template = Liquid::Template.parse(File.read(@template), :error_mode => :strict)
       
-      f.puts template.render "title" => "xxx", "template_dir" => File.dirname(@template)
+      f.puts template.render "title" => "Split Apple Rock"
 
       notify :rendered, @out
     end

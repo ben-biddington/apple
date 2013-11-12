@@ -1,0 +1,53 @@
+body {
+  font-size: 13px; }
+
+div.holder {
+  height: 365px;
+  background-position: bottom right;
+  background-repeat: no-repeat; }
+
+#calendar-title {
+  font-family: helvetica;
+  height: 30px;
+  width: 447px; }
+
+#calendar-title-text {
+  position: relative;
+  left: 73px;
+  width: 50%;
+  text-align: center; }
+
+#calendar-days {
+  font-family: helvetica; }
+
+.day {
+  font-family: helvetica;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 40px; }
+  .day:hover {
+    background-color: rgba(107, 175, 207, 0.2); }
+
+.dayname {
+  color: black;
+  height: 25px; }
+
+span.day, span.dayname {
+  padding: 2px;
+  border: 1px solid #EEE;
+  width: 58px;
+  float: left; }
+
+span.busy {
+  background-color: red;
+  color: white;
+  font-weight: bold; }
+
+#next_month {
+  width: 25%;
+  display: inline-block;
+  float: right;
+  text-align: right; }
+
+#prev_month {
+  width: 25%;
+  display: inline-block; }

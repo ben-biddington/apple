@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {%include "header" %}
+    <link rel="stylesheet" type="text/css" href="css/calendar.css" />
   <body>
     <div id="wrap">
       <div class="container">
@@ -15,8 +16,6 @@
 	  </div>
 	  <div id="events"></div>
 	</div>
-        <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
-        <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
       </div>
     </div>
     {%include "footer" %}
