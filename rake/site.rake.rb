@@ -1,6 +1,8 @@
 desc "Generate the pages"
 task :generate do
-  Site.on(:page){|e,args| puts "Generated <#{args.first}>"}
+  Site.on(:page){|e,args|               puts "Generated <#{args.first}>"}
+  Site.on(:output_dir_created){|e,args| puts "Created <#{args.first}>"}
+  
   Site.generate
 end
 
@@ -29,7 +31,14 @@ class Site
     end
 
     def output_dir
-      File.join ".", "next"
+      File.join(".", "next").tap do |dir|
+        make dir unless Dir.exists? dir
+      end
+    end
+    
+    def make(what)
+      Dir.mkdir what
+      notify :output_dir_created, what
     end
   end
 end
