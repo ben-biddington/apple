@@ -2,9 +2,15 @@ desc "Resize an image"
 task :resize do
   source_dir = File.expand_path(File.join ".", "pictures")
   
+  require "fileutils"
+
+  out = "next/img"
+
+  FileUtils.mkdir_p out unless Dir.exists? out
+
   Image.new("#{source_dir}/IMG_2477.JPG").tap do |img|
     img.on(:resized){|e,args| puts args.first}
-  end.resize(:percentage => 40, :to => "next/img/home.jpg")
+  end.resize(:percentage => 40, :to => "#{out}/home.jpg")
 end
 
 class Image
