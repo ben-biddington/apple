@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    {%include "header" %}
+  <body>
+    <div id="wrap">
+      <div class="container">
+	<div>
+	  {%include "menu"%}
+	  <h1>{{ title }}</h1>
+	</div>
+	<div class="text">
+	  <div id="calendar">
+	    <div id="calendar-title">Loading...</div>
+	    <div id="calendar-days"></div>
+	  </div>
+	  <div id="events"></div>
+	</div>
+        <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
+        <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+      </div>
+    </div>
+    {%include "footer" %}
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script>
+  <script type="text/javascript" src="js/extensions.js"></script>
+  <script type="text/javascript" src="js/query.js"></script>
+  <script type="text/javascript" src="js/views/calendar.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script language="javascript">
+    google.load("gdata", "1");
+    google.setOnLoadCallback(load);
+ 
+    var calendarUrl = window.configuration.calendar;
+
+    var feedUrl = "https://www.google.com/calendar/feeds/" + calendarUrl + "/public/full";
+
+    // see: http://gdata-javascript-client.googlecode.com/svn/trunk/samples/calendar/simple_sample/simple_sample.html
+    // see: http://code.google.com/apis/gdata/jsdoc/2.2/index.html
+    function load() {
+      calendar = new google.gdata.calendar.CalendarService('cl');
+      var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
+      query.setOrderBy('starttime');
+
+      calendar.getEventsFeed(query, 
+        function(feedRoot) {
+          var entries = feedRoot.feed.getEntries();
+
+          clearCalendar();
+
+          new CalendarView({ entries : entries, year : year(), month : month()}).render();
+        }, 
+        function(e) {}
+      );
+    }
+
+    function clearCalendar() {
+        $("#calendar-title").empty();
+    }
+
+    function timezone() {
+	return first(function(item) { 
+	    return item.getTimes().length > 0;
+	}).getTimes()[0].getStartTime().getDate().getTimezoneOffset();
+    } 
+
+    function year() {
+      return intQueryParamOr("y", function() { return new Date().getYear() + 1900 });
+    }
+
+    function month() {
+      return intQueryParamOr("m", function() { return new Date().getMonth() + 1 });
+    }
+
+    function intQueryParamOr(name, block) {
+      var query = new Query();
+
+      return query.parameter(name) != null && isNumeric(query.parameter(name)) ? 
+        parseInt(query.parameter(name)) : 
+        block();
+    }
+
+    function isNumeric(what) {
+      return false == isNaN(parseInt(what));
+    }
+  </script> 
+  </body>
+</html>

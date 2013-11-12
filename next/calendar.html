@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sticky Footer Template for Bootstrap</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/sticky-footer.css" rel="stylesheet">
+
+    <style type="text/css">
+      /*http://colorschemedesigner.com/#3D11T--E8w0w0*/
+      
+      div#wrap { background: url('img/home.jpg'); color:#fff; }
+      div.container { background-color:#1F0081; opacity:0.45; }
+
+      div#menu a { 
+        color:#FFF; 
+        width: 90px; padding:5px; margin:0px; display:inline-block; 
+        background-color:#6139E3; opacity:1.0; 
+        text-decoration:none; 
+      }
+      div#menu a.active { background-color:#3881E0; opacity:0.99; }
+      div#menu a:hover { background-color:#3881E0; opacity:0.95; }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div class="container">
+	<div>
+	  <div id="menu">
+  <a href="#" class="active">Home</a>
+  <a href="#">About</a>
+  <a href="#">Rooms</a>
+  <a href="#">Activities</a>
+  <a href="#">Rates</a>
+  <a href="#">Contact</a>
+  <a href="#">Availability</a>
+</div>
+	  <h1>xxx</h1>
+	</div>
+	<div class="text">
+	  <div id="calendar">
+	    <div id="calendar-title">Loading...</div>
+	    <div id="calendar-days"></div>
+	  </div>
+	  <div id="events"></div>
+	</div>
+        <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
+        <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+      </div>
+    </div>
+    <div id="footer">
+  <div class="container">
+    <p class="text-muted credit">Example courtesy</p>
+  </div>
+</div>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script>
+  <script type="text/javascript" src="js/extensions.js"></script>
+  <script type="text/javascript" src="js/query.js"></script>
+  <script type="text/javascript" src="js/views/calendar.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script language="javascript">
+    google.load("gdata", "1");
+    google.setOnLoadCallback(load);
+ 
+    var calendarUrl = window.configuration.calendar;
+
+    var feedUrl = "https://www.google.com/calendar/feeds/" + calendarUrl + "/public/full";
+
+    // see: http://gdata-javascript-client.googlecode.com/svn/trunk/samples/calendar/simple_sample/simple_sample.html
+    // see: http://code.google.com/apis/gdata/jsdoc/2.2/index.html
+    function load() {
+      calendar = new google.gdata.calendar.CalendarService('cl');
+      var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
+      query.setOrderBy('starttime');
+
+      calendar.getEventsFeed(query, 
+        function(feedRoot) {
+          var entries = feedRoot.feed.getEntries();
+
+          clearCalendar();
+
+          new CalendarView({ entries : entries, year : year(), month : month()}).render();
+        }, 
+        function(e) {}
+      );
+    }
+
+    function clearCalendar() {
+        $("#calendar-title").empty();
+    }
+
+    function timezone() {
+	return first(function(item) { 
+	    return item.getTimes().length > 0;
+	}).getTimes()[0].getStartTime().getDate().getTimezoneOffset();
+    } 
+
+    function year() {
+      return intQueryParamOr("y", function() { return new Date().getYear() + 1900 });
+    }
+
+    function month() {
+      return intQueryParamOr("m", function() { return new Date().getMonth() + 1 });
+    }
+
+    function intQueryParamOr(name, block) {
+      var query = new Query();
+
+      return query.parameter(name) != null && isNumeric(query.parameter(name)) ? 
+        parseInt(query.parameter(name)) : 
+        block();
+    }
+
+    function isNumeric(what) {
+      return false == isNaN(parseInt(what));
+    }
+  </script> 
+  </body>
+</html>

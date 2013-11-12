@@ -22,7 +22,8 @@ class Site
     def pages
       [
        page(page_template, "home"),
-       page(page_template, "about")
+       page(page_template, "about"),
+       page(File.join(".", "templating", "templates", "availability.template"), "calendar")
       ]
     end
 
