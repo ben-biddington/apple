@@ -21,9 +21,13 @@ class Site
 
     def pages
       [
-       Page.new(:template => page_template, :out => File.join(output_dir, "home.html")),
-       Page.new(:template => page_template, :out => File.join(output_dir, "about.html"))
+       page(page_template, "home"),
+       page(page_template, "about")
       ]
+    end
+
+    def page(template, name)
+      Page.new(:template => template, :out => File.join(output_dir, "#{name}.html"))
     end
 
     def page_template
