@@ -31,7 +31,7 @@ class Site
     end
 
     def page_template
-      File.join ".", "templating", "templates", "page.html.erb"
+      File.join ".", "templating", "templates", "page.template"
     end
 
     def output_dir
